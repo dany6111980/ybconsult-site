@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 import {
   CheckCircle2,
   Shield,
@@ -17,7 +17,6 @@ import {
 
 /* assets placed in /public */
 const logoSrc = "/logo-yb.png";   // put "logo YB consulting.png" as /public/logo-yb.png
-// const heroBg  = "/hero-bg.png"; // no longer used for hero (we use CSS .hero-section gradient)
 
 /* top stats */
 const stats = [
@@ -43,15 +42,6 @@ const pillars = [
     title: "Litigation Support — Building the Case",
     text: "We organize complex documentation for legal teams: chronology, entity maps, and risk exposure models that transform complexity into credibility in court.",
   },
-];
-
-/* red flags */
-const redFlags = [
-  "Stock/delivery irregularities that appear cyclically",
-  "New supplier with terms that look 'too good' for the risk",
-  "Document anomalies across invoices/contracts",
-  "Employees unusually aligned with external partners",
-  "Sudden client behavior shifts with unexplained concessions",
 ];
 
 /* method cards */
@@ -86,8 +76,38 @@ const sectors = [
   "Emerging Technology & AI-driven Businesses",
 ];
 
+/* impact metrics for the strip */
+const impact = [
+  { k: "72%", v: "Faster anomaly detection after AI dashboarding" },
+  { k: "10 days", v: "Typical time to deliver a litigation-ready brief" },
+  { k: "7+ countries", v: "Cross-border operations across the EU" },
+];
+
 export default function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  /* tiny scroll-reveal for glass cards / photos / metrics */
+  useEffect(() => {
+    const els = document.querySelectorAll(".yb-photo, .yb-glass, .yb-metric");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.transform = "translateY(0)";
+          e.target.style.opacity = "1";
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    els.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(12px)";
+      el.style.transition = "opacity .6s ease, transform .6s ease";
+      io.observe(el);
+    });
+
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen text-slate-900 bg-slate-50 bg-grid">
@@ -144,7 +164,7 @@ export default function Site() {
       {/* Hero (uses CSS .hero-section for dark indigo gradient) */}
       <section className="hero-section relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
+          <div className="yb-glass max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
             <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
               Business Intelligence, Due Diligence & Risk Management
             </h1>
@@ -156,27 +176,54 @@ export default function Site() {
               Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-3xl bg-white text-slate-900 px-5 py-3 font-medium shadow hover:shadow-md">
+              <a href="#contact" className="yb-btn inline-flex items-center gap-2">
                 Request Strategic Assessment <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="#services" className="inline-flex items-center gap-2 rounded-3xl bg-white/10 ring-1 ring-white/30 text-white px-5 py-3 font-medium hover:bg-white/15">
+              <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
                 Explore Our Expertise
               </a>
               {/* PDF CTA */}
-              <a href="/OnePager.pdf" download
-                 className="inline-flex items-center gap-2 rounded-3xl bg-white/10 ring-1 ring-white/30 text-white px-5 py-3 font-medium hover:bg-white/15">
+              <a
+                href="/OnePager.pdf"
+                download
+                className="yb-btn-ghost inline-flex items-center gap-2"
+              >
                 Download Anti-Fraud Overview
               </a>
             </div>
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
               {stats.map((s, i) => (
-                <div key={i} className="rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
+                <div key={i} className="yb-glass rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
                   <div className="text-2xl font-semibold">{s.value}</div>
                   <div className="text-sm text-indigo-100 mt-1">{s.label}</div>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Mood collage on the right */}
+          <div className="mt-10 grid md:grid-cols-2 gap-10 items-start">
+            <div className="hidden md:block" />
+            <div className="space-y-4">
+              <figure className="yb-photo"><img src="/img/ops-night.jpg" alt="Operations at night" /></figure>
+              <div className="grid grid-cols-2 gap-4">
+                <figure className="yb-photo"><img src="/img/network-graph.jpg" alt="Network analysis" /></figure>
+                <figure className="yb-photo"><img src="/img/forensic-desk.jpg" alt="Forensic desk" /></figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Metrics strip */}
+      <section className="max-w-6xl mx-auto px-6 pb-6">
+        <div className="grid yb-metrics grid-cols-1 sm:grid-cols-3 gap-3">
+          {impact.map((m, i) => (
+            <div key={i} className="yb-metric">
+              <h4 className="text-2xl font-bold">{m.k}</h4>
+              <p className="text-slate-300/85">{m.v}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -197,15 +244,15 @@ export default function Site() {
       <section id="services" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-semibold tracking-tight">Our Three Axes of Intervention</h2>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
             {pillars.map((p, i) => (
-              <div key={i} className="rounded-2xl border border-slate-200/60 bg-gradient-to-b from-slate-50/70 to-white p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition">
+              <div key={i} className="yb-glass rounded-2xl border border-slate-200/60 bg-gradient-to-b from-slate-50/70 to-white p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition">
                 <div className="flex items-center gap-2 text-indigo-700">{p.icon}<h3 className="font-semibold">{p.title}</h3></div>
                 <p className="mt-2 text-sm text-slate-700">{p.text}</p>
                 <div className="mt-4 text-sm text-slate-700">
-                  <span className="font-medium">Why it matters:</span> reduce exposure, neutralize manipulations, and create legal-grade clarity.<br/>
-                  <span className="font-medium">How we work:</span> on-site checks + interviews + forensic docs + AI link analysis.<br/>
-                  <span className="font-medium">Deliverables:</span> due-diligence reports, risk maps, timelines, entity graphs, evidence packs.<br/>
+                  <span className="font-medium">Why it matters:</span> reduce exposure, neutralize manipulations, and create legal-grade clarity.<br />
+                  <span className="font-medium">How we work:</span> on-site checks + interviews + forensic docs + AI link analysis.<br />
+                  <span className="font-medium">Deliverables:</span> due-diligence reports, risk maps, timelines, entity graphs, evidence packs.<br />
                   <span className="font-medium">Timeline:</span> calibrated per case volume (typically 1–4 weeks).
                 </div>
               </div>
@@ -219,15 +266,15 @@ export default function Site() {
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold mb-8">The Intelligence Cycle — Detect • Handle • Secure</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <div className="rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
+            <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
               <h3 className="text-xl font-semibold mb-2 text-indigo-300">Detect — See What Others Miss</h3>
               <p className="text-slate-200">Due diligence, field verification, forensic document review, and AI anomaly detection reveal weak signals and hidden risks.</p>
             </div>
-            <div className="rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
+            <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
               <h3 className="text-xl font-semibold mb-2 text-emerald-300">Handle — Control the Situation</h3>
               <p className="text-slate-200">We structure complexity into timelines, entity maps, and exposure models so decisions become objective and actionable.</p>
             </div>
-            <div className="rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
+            <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
               <h3 className="text-xl font-semibold mb-2 text-blue-300">Secure — Protect the Future</h3>
               <p className="text-slate-200">We implement preventive fixes: dual-control approvals, segregation of duties, anomaly alerts, quarterly intelligence reviews.</p>
             </div>
@@ -242,17 +289,17 @@ export default function Site() {
       <section id="bi" className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-semibold tracking-tight">Business Intelligence Tools & AI Management</h2>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-2 text-indigo-700"><LineChart className="w-5 h-5"/><h3 className="font-semibold">Decision Dashboards</h3></div>
+              <div className="flex items-center gap-2 text-indigo-700"><LineChart className="w-5 h-5" /><h3 className="font-semibold">Decision Dashboards</h3></div>
               <p className="mt-2 text-slate-700 text-sm">Unify operations, risk and finance in one view. Real-time insights for owners and legal teams.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-2 text-indigo-700"><Brain className="w-5 h-5"/><h3 className="font-semibold">Anomaly Detection</h3></div>
+              <div className="flex items-center gap-2 text-indigo-700"><Brain className="w-5 h-5" /><h3 className="font-semibold">Anomaly Detection</h3></div>
               <p className="mt-2 text-slate-700 text-sm">AI flags unusual flows, forged patterns, and high-risk counterparties across documents and data.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-2 text-indigo-700"><CircuitBoard className="w-5 h-5"/><h3 className="font-semibold">Lightweight Integration</h3></div>
+              <div className="flex items-center gap-2 text-indigo-700"><CircuitBoard className="w-5 h-5" /><h3 className="font-semibold">Lightweight Integration</h3></div>
               <p className="mt-2 text-slate-700 text-sm">Designed for SMEs: fast deployment, low footprint, and clear ownership of processes and data.</p>
             </div>
           </div>
@@ -298,6 +345,20 @@ export default function Site() {
         </div>
       </section>
 
+      {/* Inspiration Gallery */}
+      <section className="max-w-6xl mx-auto px-6 py-16" id="gallery">
+        <h2 className="text-3xl font-semibold tracking-tight mb-6">The Work, Quietly</h2>
+        <p className="text-slate-600 max-w-3xl">
+          Investigation, pattern recognition, prevention. Traditional craft — upgraded with today’s intelligence.
+        </p>
+
+        <div className="mt-8 grid md:grid-cols-3 gap-5">
+          <figure className="yb-photo"><img src="/img/ai-lens.jpg" alt="AI lens" /></figure>
+          <figure className="yb-photo"><img src="/img/secure-systems.jpg" alt="Secure systems" /></figure>
+          <figure className="yb-photo"><img src="/img/team-field.jpg" alt="Fieldwork" /></figure>
+        </div>
+      </section>
+
       {/* Sectors */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -323,7 +384,7 @@ export default function Site() {
               { t: "Document Falsification in Trade", d: "Forensic audit proved internal-external collusion, enabling action." },
               { t: "Risk Dashboard for Construction", d: "Anomaly alerts cut exposure by 68% within two quarters." },
             ].map((c, i) => (
-              <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm yb-glass">
                 <h3 className="font-semibold">{c.t}</h3>
                 <p className="mt-2 text-sm text-slate-700">{c.d}</p>
               </div>
@@ -369,7 +430,7 @@ export default function Site() {
         <div className="absolute -inset-20 -z-10 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(99,102,241,0.3),rgba(15,23,42,0))]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-2 rounded-3xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-6 md:p-8">
+            <div className="lg:col-span-2 yb-glass rounded-3xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-6 md:p-8">
               <h2 className="text-2xl md:text-3xl font-semibold">Request a Strategic Assessment</h2>
               <p className="mt-2 text-indigo-100">
                 One click to clarity. Share your context — our Intelligence Desk will respond within 24 hours.
@@ -441,7 +502,7 @@ export default function Site() {
             </div>
 
             <div className="lg:pl-2">
-              <div className="rounded-2xl border border-indigo-300/40 bg-indigo-50/40 p-6 text-slate-800">
+              <div className="rounded-2xl border border-indigo-300/40 bg-indigo-50/40 p-6 text-slate-8 00">
                 <div className="flex items-center gap-2 text-indigo-700 font-semibold">
                   <Shield className="w-5 h-5" /> Privacy & Compliance
                 </div>

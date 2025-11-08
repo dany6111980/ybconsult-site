@@ -56,3 +56,63 @@
   100% {opacity: 0.5; filter: hue-rotate(-10deg);}
 }
 
+/* --- Dark elegant theme tweaks --- */
+:root{
+  --yb-bg1: #0c1220; /* midnight */
+  --yb-bg2: #1a2240; /* deep indigo */
+  --yb-accent: #8aa4ff; /* soft indigo */
+  --yb-accent-2: #9bf2f2; /* subtle cyan */
+}
+
+body {
+  background:
+    radial-gradient(60rem 40rem at 85% 10%, rgba(155,242,242,.06), transparent 60%),
+    radial-gradient(40rem 30rem at 15% 0%, rgba(138,164,255,.07), transparent 55%),
+    linear-gradient(180deg, var(--yb-bg1), var(--yb-bg2));
+  color: #e8ecff;
+}
+
+/* Glass cards */
+.yb-glass {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+}
+
+/* Buttons */
+.yb-btn {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.8rem 1.1rem; border-radius:9999px;
+  background: linear-gradient(90deg, var(--yb-accent) 0%, var(--yb-accent-2) 100%);
+  color:#0b1020; font-weight:600;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.yb-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(138,164,255,.25); }
+
+.yb-btn-ghost {
+  padding:.8rem 1.1rem; border-radius:9999px; font-weight:600;
+  border:1px solid rgba(255,255,255,.16); color:#e8ecff;
+  background: rgba(255,255,255,.03);
+}
+.yb-btn-ghost:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.06); }
+
+/* Headline gradient */
+.yb-head {
+  background: linear-gradient(180deg,#ffffff, #bfc9ff 70%, #9fb1ff 100%);
+  -webkit-background-clip:text; background-clip:text; color: transparent;
+}
+
+/* Gallery hover */
+.yb-photo {
+  border-radius: 1rem; overflow:hidden; position:relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+.yb-photo img { transition: transform .6s ease; display:block; }
+.yb-photo:hover img { transform: scale(1.06); }
+
+/* Metrics strip */
+.yb-metrics { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:1rem; }
+.yb-metric { padding:1.1rem 1.2rem; border-radius:1rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); }
+.yb-metric h4 { font-size:1.6rem; line-height:1; margin:0 0 .25rem 0; }
+.yb-metric p { margin:0; color:#c8d3ff; font-size:.95rem; }
