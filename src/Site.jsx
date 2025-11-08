@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from "react";
+﻿
+import { useState, useEffect } from "react";
 import {
   CheckCircle2,
   Shield,
@@ -164,54 +165,62 @@ export default function Site() {
       {/* Hero (uses CSS .hero-section for dark indigo gradient) */}
       <section className="hero-section relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="yb-glass max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
-            <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
-              Business Intelligence, Due Diligence & Risk Management
-            </h1>
-            <p className="mt-4 text-lg/7 text-indigo-100">
-              We combine field investigation and AI precision to turn uncertainty into clarity —
-              and clarity into decisive action.
-            </p>
-            <p className="mt-2 text-indigo-200 text-base">
-              Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#contact" className="yb-btn inline-flex items-center gap-2">
-                Request Strategic Assessment <ArrowRight className="w-4 h-4" />
-              </a>
-              <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
-                Explore Our Expertise
-              </a>
-              {/* PDF CTA */}
-              <a
-                href="/OnePager.pdf"
-                download
-                className="yb-btn-ghost inline-flex items-center gap-2"
-              >
-                Download Anti-Fraud Overview
-              </a>
+          {/* ---- Two-column layout: hero card + collage aligned on the same row ---- */}
+          <div className="grid md:grid-cols-2 gap-10 items-start">
+            {/* Left: hero card */}
+            <div className="yb-glass max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
+              <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
+                Business Intelligence, Due Diligence & Risk Management
+              </h1>
+              <p className="mt-4 text-lg/7 text-indigo-100">
+                We combine field investigation and AI precision to turn uncertainty into clarity —
+                and clarity into decisive action.
+              </p>
+              <p className="mt-2 text-indigo-200 text-base">
+                Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="#contact" className="yb-btn inline-flex items-center gap-2">
+                  Request Strategic Assessment <ArrowRight className="w-4 h-4" />
+                </a>
+                <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
+                  Explore Our Expertise
+                </a>
+                {/* PDF CTA */}
+                <a
+                  href="/OnePager.pdf"
+                  download
+                  className="yb-btn-ghost inline-flex items-center gap-2"
+                >
+                  Download Anti-Fraud Overview
+                </a>
+              </div>
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {stats.map((s, i) => (
+                  <div key={i} className="yb-glass rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
+                    <div className="text-2xl font-semibold">{s.value}</div>
+                    <div className="text-sm text-indigo-100 mt-1">{s.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {stats.map((s, i) => (
-                <div key={i} className="yb-glass rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
-                  <div className="text-2xl font-semibold">{s.value}</div>
-                  <div className="text-sm text-indigo-100 mt-1">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Mood collage on the right */}
-          <div className="mt-10 grid md:grid-cols-2 gap-10 items-start">
-            <div className="hidden md:block" />
-            <div className="space-y-4">
-              <figure className="yb-photo"><img src="/img/ops-night.jpg" alt="Operations at night" /></figure>
+            {/* Right: collage */}
+            <div className="space-y-4 md:mt-2">
+              <figure className="yb-photo overflow-hidden rounded-3xl aspect-[16/10]">
+                <img src="/img/ops-night.jpg" alt="Operations at night" className="w-full h-full object-cover" />
+              </figure>
               <div className="grid grid-cols-2 gap-4">
-                <figure className="yb-photo"><img src="/img/network-graph.jpg" alt="Network analysis" /></figure>
-                <figure className="yb-photo"><img src="/img/forensic-desk.jpg" alt="Forensic desk" /></figure>
+                <figure className="yb-photo overflow-hidden rounded-3xl aspect-[16/10]">
+                  <img src="/img/network-graph.jpg" alt="Network analysis" className="w-full h-full object-cover" />
+                </figure>
+                <figure className="yb-photo overflow-hidden rounded-3xl aspect-[16/10]">
+                  <img src="/img/forensic-desk.jpg" alt="Forensic desk" className="w-full h-full object-cover" />
+                </figure>
               </div>
             </div>
           </div>
+          {/* ---- /Two-column hero ---- */}
         </div>
       </section>
 
