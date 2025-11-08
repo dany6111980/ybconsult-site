@@ -1,0 +1,58 @@
+﻿/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* --- Futuristic global background helpers --- */
+.bg-grid {
+  background-image:
+    radial-gradient(25rem 25rem at 100% 0%, rgba(99,102,241,0.10), transparent 40%),
+    radial-gradient(30rem 30rem at 0% 100%, rgba(16,185,129,0.10), transparent 45%),
+    linear-gradient(to bottom right, rgba(148,163,184,0.15), rgba(30,41,59,0.15));
+}
+.bg-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px) 0 0 / 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(60% 60% at 50% 50%, black 60%, transparent 100%);
+  opacity: .35;
+}
+@keyframes softPulse {
+  0%,100% {opacity:.65; filter:hue-rotate(0deg) saturate(110%);}
+  50% {opacity:.9; filter:hue-rotate(12deg) saturate(130%);}
+}
+.animate-softPulse { animation: softPulse 10s ease-in-out infinite; }
+/* === Hero Section (YB Consulting Theme) === */
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #312e81 100%);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* Optional subtle texture overlay (matches your .bg-grid aesthetic) */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(79,70,229,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(37,99,235,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(79,70,229,0.08) 0%, transparent 40%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: pulseGlow 18s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {opacity: 0.5; filter: hue-rotate(0deg);}
+  50% {opacity: 0.8; filter: hue-rotate(10deg);}
+  100% {opacity: 0.5; filter: hue-rotate(-10deg);}
+}
+
