@@ -1,19 +1,23 @@
-﻿[build]
-  command = "npm run build"
+# netlify.toml  — root of the repo
+
+[build]
   publish = "dist"
+  command = "npm run build"
 
 [functions]
   directory = "netlify/functions"
+  node_bundler = "esbuild"
 
-# Optional: show clean URLs (no .html) if you have multi pages
-# [[redirects]]
-#   from = "/*"
-#   to = "/index.html"
-#   status = 200
-
-# Make a pretty API path for the function:
+# Route /api/* to your Netlify functions (adjust if you don't want this)
 [[redirects]]
-  from = "/api/ask-yb"
-  to   = "/.netlify/functions/ask-yb"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
-  force = true
+
+# (Optional) security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
