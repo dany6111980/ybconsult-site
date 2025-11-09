@@ -1,0 +1,2 @@
+/*    /index.html   200
+/ask-yb   /.netlify/functions/ask-yb   200

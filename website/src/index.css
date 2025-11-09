@@ -1,0 +1,157 @@
+﻿/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* --- Futuristic global background helpers --- */
+.bg-grid {
+  background-image:
+    radial-gradient(25rem 25rem at 100% 0%, rgba(99,102,241,0.10), transparent 40%),
+    radial-gradient(30rem 30rem at 0% 100%, rgba(16,185,129,0.10), transparent 45%),
+    linear-gradient(to bottom right, rgba(148,163,184,0.15), rgba(30,41,59,0.15));
+}
+.bg-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px) 0 0 / 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(60% 60% at 50% 50%, black 60%, transparent 100%);
+  opacity: .35;
+}
+@keyframes softPulse {
+  0%,100% {opacity:.65; filter:hue-rotate(0deg) saturate(110%);}
+  50% {opacity:.9; filter:hue-rotate(12deg) saturate(130%);}
+}
+.animate-softPulse { animation: softPulse 10s ease-in-out infinite; }
+/* === Hero Section (YB Consulting Theme) === */
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #312e81 100%);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* Optional subtle texture overlay (matches your .bg-grid aesthetic) */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(79,70,229,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(37,99,235,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(79,70,229,0.08) 0%, transparent 40%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: pulseGlow 18s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {opacity: 0.5; filter: hue-rotate(0deg);}
+  50% {opacity: 0.8; filter: hue-rotate(10deg);}
+  100% {opacity: 0.5; filter: hue-rotate(-10deg);}
+}
+
+/* --- Dark elegant theme tweaks --- */
+:root{
+  --yb-bg1: #0c1220; /* midnight */
+  --yb-bg2: #1a2240; /* deep indigo */
+  --yb-accent: #8aa4ff; /* soft indigo */
+  --yb-accent-2: #9bf2f2; /* subtle cyan */
+}
+
+body {
+  background:
+    radial-gradient(60rem 40rem at 85% 10%, rgba(155,242,242,.06), transparent 60%),
+    radial-gradient(40rem 30rem at 15% 0%, rgba(138,164,255,.07), transparent 55%),
+    linear-gradient(180deg, var(--yb-bg1), var(--yb-bg2));
+  color: #e8ecff;
+}
+
+/* Glass cards */
+.yb-glass {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+}
+
+/* Buttons */
+.yb-btn {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.8rem 1.1rem; border-radius:9999px;
+  background: linear-gradient(90deg, var(--yb-accent) 0%, var(--yb-accent-2) 100%);
+  color:#0b1020; font-weight:600;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.yb-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(138,164,255,.25); }
+
+.yb-btn-ghost {
+  padding:.8rem 1.1rem; border-radius:9999px; font-weight:600;
+  border:1px solid rgba(255,255,255,.16); color:#e8ecff;
+  background: rgba(255,255,255,.03);
+}
+.yb-btn-ghost:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.06); }
+
+/* Headline gradient */
+.yb-head {
+  background: linear-gradient(180deg,#ffffff, #bfc9ff 70%, #9fb1ff 100%);
+  -webkit-background-clip:text; background-clip:text; color: transparent;
+}
+
+/* Gallery hover */
+.yb-photo {
+  border-radius: 1rem; overflow:hidden; position:relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+.yb-photo img { transition: transform .6s ease; display:block; }
+.yb-photo:hover img { transform: scale(1.06); }
+
+/* Metrics strip */
+.yb-metrics { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:1rem; }
+.yb-metric { padding:1.1rem 1.2rem; border-radius:1rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); }
+.yb-metric h4 { font-size:1.6rem; line-height:1; margin:0 0 .25rem 0; }
+.yb-metric p { margin:0; color:#c8d3ff; font-size:.95rem; }
+/* Ask YB widget */
+.yb-bubble {
+  position: fixed; right: 20px; bottom: 20px;
+  z-index: 60; background: #5b7cff; color: #fff;
+  border-radius: 999px; padding: 10px 14px;
+  font-weight: 600; box-shadow: 0 10px 30px rgba(91,124,255,.35);
+  cursor: pointer; transition: transform .15s ease;
+}
+.yb-bubble:hover { transform: translateY(-1px); }
+
+.yb-panel {
+  position: fixed; right: 20px; bottom: 80px; width: 360px; max-height: 65vh;
+  background: rgba(18,22,40,.92); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.45); z-index: 60; display: none;
+  overflow: hidden;
+}
+.yb-panel__head {
+  padding: 12px 14px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,.08); color:#dfe5ff; font-weight:600;
+}
+.yb-close { margin-left:auto; opacity:.7; cursor:pointer; }
+.yb-chat {
+  padding: 12px; max-height: 45vh; overflow:auto; color:#e8ecff; font-size: 14px;
+}
+.yb-msg { margin: 10px 0; line-height: 1.4; }
+.yb-user { text-align: right; }
+.yb-bot { text-align: left; opacity:.95; }
+.yb-input {
+  display:flex; gap:8px; padding:10px; border-top: 1px solid rgba(255,255,255,.08);
+}
+.yb-input input {
+  flex:1; background:#0f1324; border:1px solid rgba(255,255,255,.08);
+  border-radius:10px; padding:10px 12px; color:#e8ecff;
+}
+.yb-input button {
+  background:#5b7cff; color:#fff; border:none; padding:10px 12px;
+  border-radius:10px; font-weight:600; cursor:pointer;
+}

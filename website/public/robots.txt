@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yb-dgm-phaseshift-solutions.netlify.app/sitemap.xml
