@@ -1,7 +1,19 @@
-[build]
+﻿[build]
   command = "npm run build"
   publish = "dist"
 
 [functions]
   directory = "netlify/functions"
-  node_bundler = "esbuild"
+
+# Optional: show clean URLs (no .html) if you have multi pages
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
+
+# Make a pretty API path for the function:
+[[redirects]]
+  from = "/api/ask-yb"
+  to   = "/.netlify/functions/ask-yb"
+  status = 200
+  force = true

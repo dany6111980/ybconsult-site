@@ -1,4 +1,18 @@
-﻿dist/
+﻿# deps & build
 node_modules/
+dist/
+.vite/
+.cache/
+
+# editor/OS noise
 .DS_Store
+Thumbs.db
+
+# env & local config
 .env
+.env.local
+.env.*.local
+
+# Netlify local files
+.netlify/*
+!.netlify/functions
