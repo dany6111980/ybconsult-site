@@ -1,10 +1,11 @@
-﻿<!doctype html>
+﻿
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
 
     <title>YB Consulting — Business Intelligence, Due Diligence & Risk Management</title>
@@ -13,47 +14,117 @@
       content="YB Consulting blends field investigation with AI-driven intelligence for prevention, investigations, and litigation support across Europe."
     />
 
-    <!-- Social sharing -->
+    <!-- Canonical + social -->
+    <link rel="canonical" href="https://www.ybconsulting.ai/" />
     <meta property="og:title" content="YB Consulting — Business Intelligence, Due Diligence & Risk Management" />
     <meta property="og:description" content="From magnifying glass to AI chip: prevention, investigations, and litigation support." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ybconsulting.ai/" />
+    <meta property="og:url" content="https://www.ybconsulting.ai/" />
     <meta property="og:image" content="/hero-bg.png" />
-
-    <link rel="alternate" href="https://ybconsulting.ai/" hreflang="en" />
-    <link rel="alternate" href="https://ybconsulting.ai/fr" hreflang="fr" />
-    <link rel="alternate" href="https://ybconsulting.ai/de" hreflang="de" />
-    <link rel="alternate" href="https://ybconsulting.ai/es" hreflang="es" />
-<meta name="google-site-verification" content="HOk7kX_CS7SCKSgMR-YnntYXzrziaSWUU1Lk77bE__0" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="YB Consulting — Business Intelligence, Due Diligence & Risk Management" />
-    <meta name="twitter:description" content="Intelligence, clarity, action — prevention to litigation." />
+    <meta name="twitter:description" content="Intelligence, clarity, action — from prevention to litigation." />
     <meta name="twitter:image" content="/hero-bg.png" />
 
-    <!-- Privacy-friendly analytics by Plausible -->
+    <!-- Hreflang -->
+    <link rel="alternate" href="https://www.ybconsulting.ai/" hreflang="en" />
+    <link rel="alternate" href="https://www.ybconsulting.ai/fr" hreflang="fr" />
+    <link rel="alternate" href="https://www.ybconsulting.ai/de" hreflang="de" />
+    <link rel="alternate" href="https://www.ybconsulting.ai/es" hreflang="es" />
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="HOk7kX_CS7SCKSgMR-YnntYXzrziaSWUU1Lk77bE__0" />
+
+    <!-- Make relative links root-based no matter the route -->
+    <base href="/" />
+
+    <!-- Plausible -->
     <script async src="https://plausible.io/js/pa-FxN83tE3oWKsnD8fVbuJd.js"></script>
     <script>
       window.plausible =
         window.plausible ||
-        function () {
-          (plausible.q = plausible.q || []).push(arguments);
-        };
-      plausible.init = plausible.init || function (i) { plausible.o = i || {}; };
+        function () { (plausible.q = plausible.q || []).push(arguments); };
+      plausible.init = plausible.init || function (o) { plausible.o = o || {}; };
       plausible.init();
     </script>
+
+    <!-- i18n bootstrap (URL -> window.__LOCALE__/__I18N_PATH__) -->
+    <script>
+      (function () {
+        try {
+          var m = (location.pathname || "").replace(/\/+$/,"").match(/^\/(fr|de|es)(?:\/|$)/i);
+          var locale = (m && m[1] ? m[1] : "en").toLowerCase();
+          document.documentElement.setAttribute("lang", locale);
+          window.__LOCALE__ = locale;
+          window.__I18N_PATH__ = "/i18n/" + locale + ".json";
+
+          var preload = document.createElement("link");
+          preload.rel = "preload";
+          preload.as = "fetch";
+          preload.href = window.__I18N_PATH__;
+          preload.crossOrigin = "anonymous";
+          document.head.appendChild(preload);
+        } catch (e) {
+          console && console.warn && console.warn("i18n bootstrap warn:", e);
+        }
+      })();
+    </script>
+
+    <!-- Preload PDFs (optional) -->
+    <link rel="preload" href="/OnePager.pdf" as="document" type="application/pdf" />
+    <link rel="preload" href="/OnePager_FR.pdf" as="document" type="application/pdf" />
   </head>
+
   <body>
     <div id="root"></div>
-    <noscript>To view this site please enable JavaScript.</noscript>
+    <noscript>This site requires JavaScript to work properly.</noscript>
 
     <!-- Vite entry -->
     <script type="module" src="/src/main.jsx"></script>
-<!-- Ask YB launcher -->
-<button id="ask-yb-launcher"
-  style="position:fixed; right:20px; bottom:20px; z-index:9999; padding:12px 14px; border-radius:999px; border:0; box-shadow:0 6px 18px rgba(0,0,0,.25); cursor:pointer;">
-  Ask YB 💬
-</button>
-<script type="module" src="/ask-yb.js"></script>
 
+    <!-- Ask YB launcher -->
+    <button
+      id="ask-yb-launcher"
+      style="position:fixed; right:20px; bottom:20px; z-index:9999; padding:12px 14px; border-radius:999px; border:0; box-shadow:0 6px 18px rgba(0,0,0,.25); cursor:pointer; background:#111827; color:white;"
+      aria-label="Open Ask YB chat"
+    >
+      Ask YB 💬
+    </button>
+    <script type="module" src="/ask-yb.js"></script>
+
+    <!-- PDF link normalizer: fixes any legacy hrefs like /public/OnePager.pdf, ./OnePager.pdf, etc. -->
+    <script>
+      (function () {
+        function fix(href) {
+          if (!href) return href;
+          var clean = href.replace(/^\.?\/*public\//i, "/").replace(/^\.?\/*/,"/");
+          if (/OnePager_FR\.pdf$/i.test(clean)) return "/OnePager_FR.pdf";
+          if (/OnePager(\.pdf)?$/i.test(clean)) return "/OnePager.pdf";
+          if (/OnePager(_?FR)?\.pdf$/i.test(clean)) return clean;
+          return clean;
+        }
+        function patchLinks() {
+          var as = document.querySelectorAll('a[href*="OnePager"]');
+          as.forEach(function (a) {
+            var newHref = fix(a.getAttribute("href"));
+            if (newHref && a.getAttribute("href") !== newHref) a.setAttribute("href", newHref);
+            if (/OnePager/i.test(newHref)) {
+              a.setAttribute("download", "");
+              a.setAttribute("target", "_blank");
+              a.setAttribute("rel", "noopener");
+            }
+          });
+        }
+        // Run early and again after React mounts
+        patchLinks();
+        window.addEventListener("load", patchLinks);
+        // If your app does client-side route changes, re-run on pushstate/popstate
+        ["pushState","replaceState"].forEach(function (m) {
+          var orig = history[m];
+          history[m] = function () { var r = orig.apply(this, arguments); setTimeout(patchLinks, 0); return r; };
+        });
+        window.addEventListener("popstate", function () { setTimeout(patchLinks, 0); });
+      })();
+    </script>
   </body>
 </html>
