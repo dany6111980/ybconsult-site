@@ -1,3 +1,4 @@
+﻿
 import { useState, useEffect } from "react";
 import {
   CheckCircle2,
@@ -17,94 +18,6 @@ import {
 
 /* assets placed in /public */
 const logoSrc = "/logo-yb.png";   // put "logo YB consulting.png" as /public/logo-yb.png
-
-/* i18n — minimal translations for top nav, hero & a few headings */
-const translations = {
-  en: {
-    nav: { mission: "Mission", expertise: "Expertise", ai: "AI & BI Tools", evolution: "Evolution", method: "Method", team: "Team", contact: "Contact" },
-    heroTitle: "Business Intelligence, Due Diligence & Risk Management",
-    heroLead: "We combine field investigation and AI precision to turn uncertainty into clarity — and clarity into decisive action.",
-    heroRegions: "Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.",
-    ctas: { assess: "Request Strategic Assessment", explore: "Explore Our Expertise", dlEN: "Download Anti-Fraud Overview", dlFR: "Présentation (FR) PDF" },
-    missionTitle: "Our Mission",
-    axesTitle: "Our Three Axes of Intervention",
-    cycleTitle: "The Intelligence Cycle — Detect • Handle • Secure",
-    biTitle: "Business Intelligence Tools & AI Management",
-    methodTitle: "Method — From Field to Data",
-    sectorsTitle: "Sectors We Serve",
-    casesTitle: "Case Studies (Anonymized)",
-    aboutTitle: "About YB Consulting",
-    coverageLabel: "European Coverage",
-    whereWeOperate: "Where we operate",
-    contactTitle: "Request a Strategic Assessment",
-    contactHelp: "One click to clarity. Share your context — our Intelligence Desk will respond within 24 hours.",
-  },
-  fr: {
-    nav: { mission: "Mission", expertise: "Expertise", ai: "Outils IA & BI", evolution: "Évolution", method: "Méthode", team: "Équipe", contact: "Contact" },
-    heroTitle: "Intelligence économique, Due Diligence & Gestion des risques",
-    heroLead: "Nous combinons l’investigation terrain et la précision de l’IA pour transformer l’incertitude en clarté — puis la clarté en action décisive.",
-    heroRegions: "Présence : Belgique, France, Luxembourg, Pays-Bas, Allemagne, Suisse et Espagne.",
-    ctas: { assess: "Demander un diagnostic stratégique", explore: "Explorer notre expertise", dlEN: "Brochure Anti-Fraude (EN)", dlFR: "Présentation (FR) PDF" },
-    missionTitle: "Notre Mission",
-    axesTitle: "Nos Trois Axes d’Intervention",
-    cycleTitle: "Cycle d’Intelligence — Détecter • Structurer • Sécuriser",
-    biTitle: "Outils de Business Intelligence & Pilotage IA",
-    methodTitle: "Méthode — Du Terrain à la Donnée",
-    sectorsTitle: "Secteurs Servis",
-    casesTitle: "Cas (Anonymisés)",
-    aboutTitle: "À propos de YB Consulting",
-    coverageLabel: "Couverture européenne",
-    whereWeOperate: "Zones d’intervention",
-    contactTitle: "Demande de diagnostic stratégique",
-    contactHelp: "Partagez votre contexte — notre cellule répond sous 24 h.",
-  },
-  de: {
-    nav: { mission: "Mission", expertise: "Expertise", ai: "KI & BI Tools", evolution: "Evolution", method: "Methode", team: "Team", contact: "Kontakt" },
-    heroTitle: "Business Intelligence, Due Diligence & Risikomanagement",
-    heroLead: "Feld­ermittlung kombiniert mit KI-Präzision — Unsicherheit wird Klarheit, Klarheit wird Handlung.",
-    heroRegions: "Einsatz in Belgien, Frankreich, Luxemburg, Niederlande, Deutschland, Schweiz und Spanien.",
-    ctas: { assess: "Strategische Einschätzung anfordern", explore: "Unsere Expertise", dlEN: "Anti-Fraud Übersicht (EN)", dlFR: "Präsentation (FR) PDF" },
-    missionTitle: "Unsere Mission",
-    axesTitle: "Drei Handlungsachsen",
-    cycleTitle: "Intelligence-Zyklus — Erkennen • Steuern • Absichern",
-    biTitle: "Business-Intelligence-Tools & KI-Steuerung",
-    methodTitle: "Methode — Vom Feld zur Datenbasis",
-    sectorsTitle: "Branchen",
-    casesTitle: "Fallstudien (anonymisiert)",
-    aboutTitle: "Über YB Consulting",
-    coverageLabel: "Europäische Abdeckung",
-    whereWeOperate: "Regionen",
-    contactTitle: "Strategische Einschätzung anfordern",
-    contactHelp: "Beschreiben Sie kurz den Kontext — Antwort innerhalb von 24 h.",
-  },
-  es: {
-    nav: { mission: "Misión", expertise: "Experiencia", ai: "Herramientas IA & BI", evolution: "Evolución", method: "Método", team: "Equipo", contact: "Contacto" },
-    heroTitle: "Inteligencia de negocios, Due Diligence y Gestión de Riesgos",
-    heroLead: "Investigación de campo y precisión de IA para transformar la incertidumbre en claridad — y la claridad en acción.",
-    heroRegions: "Operamos en Bélgica, Francia, Luxemburgo, Países Bajos, Alemania, Suiza y España.",
-    ctas: { assess: "Solicitar evaluación estratégica", explore: "Explorar nuestra experiencia", dlEN: "Resumen Anti-Fraude (EN)", dlFR: "Presentación (FR) PDF" },
-    missionTitle: "Nuestra Misión",
-    axesTitle: "Tres Ejes de Intervención",
-    cycleTitle: "Ciclo de Inteligencia — Detectar • Ordenar • Asegurar",
-    biTitle: "Herramientas de BI y Gestión de IA",
-    methodTitle: "Método — Del Terreno al Dato",
-    sectorsTitle: "Sectores",
-    casesTitle: "Casos (Anonimizados)",
-    aboutTitle: "Sobre YB Consulting",
-    coverageLabel: "Cobertura europea",
-    whereWeOperate: "Dónde operamos",
-    contactTitle: "Solicitud de evaluación estratégica",
-    contactHelp: "Comparta su contexto — respondemos en 24 h.",
-  },
-};
-
-function getInitialLang() {
-  const url = new URL(window.location.href);
-  const qp = url.searchParams.get("lang");
-  const saved = localStorage.getItem("yb_lang");
-  const candidate = (qp || saved || "en").toLowerCase();
-  return ["en", "fr", "de", "es"].includes(candidate) ? candidate : "en";
-}
 
 /* top stats */
 const stats = [
@@ -173,12 +86,9 @@ const impact = [
 
 export default function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lang, setLang] = useState("en");
-  const t = translations[lang];
 
   /* tiny scroll-reveal for glass cards / photos / metrics */
   useEffect(() => {
-    setLang(getInitialLang());
     const els = document.querySelectorAll(".yb-photo, .yb-glass, .yb-metric");
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -200,14 +110,6 @@ export default function Site() {
     return () => io.disconnect();
   }, []);
 
-  function switchLang(code) {
-    setLang(code);
-    localStorage.setItem("yb_lang", code);
-    const url = new URL(window.location.href);
-    url.searchParams.set("lang", code);
-    window.history.replaceState({}, "", url.toString());
-  }
-
   return (
     <div className="min-h-screen text-slate-900 bg-slate-50 bg-grid">
       {/* Header */}
@@ -228,33 +130,15 @@ export default function Site() {
               </div>
             </div>
           </div>
-
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#mission" className="hover:text-slate-700">{t.nav.mission}</a>
-            <a href="#services" className="hover:text-slate-700">{t.nav.expertise}</a>
-            <a href="#bi" className="hover:text-slate-700">{t.nav.ai}</a>
-            <a href="#evolution" className="hover:text-slate-700">{t.nav.evolution}</a>
-            <a href="#method" className="hover:text-slate-700">{t.nav.method}</a>
-            <a href="#team" className="hover:text-slate-700">{t.nav.team}</a>
-            <a href="#contact" className="hover:text-slate-700">{t.nav.contact}</a>
+            <a href="#mission" className="hover:text-slate-700">Mission</a>
+            <a href="#services" className="hover:text-slate-700">Expertise</a>
+            <a href="#bi" className="hover:text-slate-700">AI & BI Tools</a>
+            <a href="#evolution" className="hover:text-slate-700">Evolution</a>
+            <a href="#method" className="hover:text-slate-700">Method</a>
+            <a href="#team" className="hover:text-slate-700">Team</a>
+            <a href="#contact" className="hover:text-slate-700">Contact</a>
           </nav>
-
-          {/* Language picker */}
-          <div className="hidden md:flex items-center gap-2">
-            {["en","fr","de","es"].map(code => (
-              <button
-                key={code}
-                onClick={() => switchLang(code)}
-                className={`px-2 py-1 text-xs rounded-md border ${
-                  lang === code ? "border-indigo-500 text-indigo-700" : "border-slate-200 text-slate-600"
-                }`}
-                aria-label={`Switch language to ${code.toUpperCase()}`}
-              >
-                {code.toUpperCase()}
-              </button>
-            ))}
-          </div>
-
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl border border-slate-200"
@@ -263,67 +147,61 @@ export default function Site() {
             <Globe2 className="w-5 h-5" />
           </button>
         </div>
-
         {menuOpen && (
           <div className="md:hidden border-t border-slate-200">
             <div className="px-6 py-3 flex flex-col gap-3 text-sm">
-              <div className="flex gap-2">
-                {["en","fr","de","es"].map(code => (
-                  <button
-                    key={code}
-                    onClick={() => switchLang(code)}
-                    className={`px-2 py-1 text-xs rounded-md border ${
-                      lang === code ? "border-indigo-500 text-indigo-700" : "border-slate-200 text-slate-600"
-                    }`}
-                  >
-                    {code.toUpperCase()}
-                  </button>
-                ))}
-              </div>
-              <a href="#mission">{t.nav.mission}</a>
-              <a href="#services">{t.nav.expertise}</a>
-              <a href="#bi">{t.nav.ai}</a>
-              <a href="#evolution">{t.nav.evolution}</a>
-              <a href="#method">{t.nav.method}</a>
-              <a href="#team">{t.nav.team}</a>
-              <a href="#contact">{t.nav.contact}</a>
+              <a href="#mission">Mission</a>
+              <a href="#services">Expertise</a>
+              <a href="#bi">AI & BI Tools</a>
+              <a href="#evolution">Evolution</a>
+              <a href="#method">Method</a>
+              <a href="#team">Team</a>
+              <a href="#contact">Contact</a>
             </div>
           </div>
         )}
       </header>
 
-      {/* Hero */}
+      {/* Hero (uses CSS .hero-section for dark indigo gradient) */}
       <section className="hero-section relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+          {/* ---- Two-column layout: hero card + collage aligned on the same row ---- */}
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Left: hero card */}
             <div className="yb-glass max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
               <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
-                {t.heroTitle}
+                Business Intelligence, Due Diligence & Risk Management
               </h1>
-              <p className="mt-4 text-lg/7 text-indigo-100">{t.heroLead}</p>
-              <p className="mt-2 text-indigo-200 text-base">{t.heroRegions}</p>
-
+              <p className="mt-4 text-lg/7 text-indigo-100">
+                We combine field investigation and AI precision to turn uncertainty into clarity —
+                and clarity into decisive action.
+              </p>
+              <p className="mt-2 text-indigo-200 text-base">
+                Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
+              </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href="#contact" className="yb-btn inline-flex items-center gap-2">
-                  {t.ctas.assess} <ArrowRight className="w-4 h-4" />
+                  Request Strategic Assessment <ArrowRight className="w-4 h-4" />
                 </a>
                 <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
-                  {t.ctas.explore}
+                  Explore Our Expertise
                 </a>
-                {/* PDFs: EN and FR */}
-                <a href="/OnePager.pdf" download download className="yb-btn-ghost inline-flex items-center gap-2">
-                  {t.ctas.dlEN}
-                </a>
+                {/* PDF CTAs */}
                 <a
-                  href="/site%20YBC%20fran%C3%A7ais%20PDF.pdf"
+                  href="/OnePager.pdf"
                   download
                   className="yb-btn-ghost inline-flex items-center gap-2"
                 >
-                  {t.ctas.dlFR}
+                  Download Anti-Fraud Overview
+                </a>
+                <a
+                  href="/OnePager_FR.pdf"
+                  download
+                  className="yb-btn-ghost inline-flex items-center gap-2"
+                >
+                  Présentation (FR) PDF
                 </a>
               </div>
-
               <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {stats.map((s, i) => (
                   <div key={i} className="yb-glass rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
@@ -349,6 +227,7 @@ export default function Site() {
               </div>
             </div>
           </div>
+          {/* ---- /Two-column hero ---- */}
         </div>
       </section>
 
@@ -367,7 +246,7 @@ export default function Site() {
       {/* Mission */}
       <section id="mission" className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t.missionTitle}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">Our Mission</h2>
           <p className="mt-3 text-slate-700 leading-relaxed max-w-4xl">
             We bring investigative experience and data intelligence together so businesses can see clearly,
             act decisively, and prevent losses before they occur. Three verbs define our philosophy:
@@ -380,7 +259,7 @@ export default function Site() {
       {/* Expertise */}
       <section id="services" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t.axesTitle}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">Our Three Axes of Intervention</h2>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
             {pillars.map((p, i) => (
               <div key={i} className="yb-glass rounded-2xl border border-slate-200/60 bg-gradient-to-b from-slate-50/70 to-white p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition">
@@ -398,10 +277,10 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Detect • Handle • Secure */}
+      {/* Detect • Handle • Secure + Preventive Fixes */}
       <section id="cycle" className="py-20 bg-slate-900 text-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-semibold mb-8">{t.cycleTitle}</h2>
+          <h2 className="text-3xl font-semibold mb-8">The Intelligence Cycle — Detect • Handle • Secure</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
             <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
               <h3 className="text-xl font-semibold mb-2 text-indigo-300">Detect — See What Others Miss</h3>
@@ -422,11 +301,11 @@ export default function Site() {
         </div>
       </section>
 
-      {/* BI & AI */}
+      {/* Business Intelligence & AI Systems */}
       <section id="bi" className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t.biTitle}</h2>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <h2 className="text-3xl font-semibold tracking-tight">Business Intelligence Tools & AI Management</h2>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="rounded-2xl border border-slate-200 p-6">
               <div className="flex items-center gap-2 text-indigo-700"><LineChart className="w-5 h-5" /><h3 className="font-semibold">Decision Dashboards</h3></div>
               <p className="mt-2 text-slate-700 text-sm">Unify operations, risk and finance in one view. Real-time insights for owners and legal teams.</p>
@@ -443,7 +322,7 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Evolution */}
+      {/* Evolution: Magnifying Glass → AI Chip */}
       <section id="evolution" className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold text-slate-900 mb-4">
@@ -470,8 +349,8 @@ export default function Site() {
       {/* Method */}
       <section id="method" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t.methodTitle}</h2>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <h2 className="text-3xl font-semibold tracking-tight">Method — From Field to Data</h2>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {methods.map((m, i) => (
               <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6">
                 <div className="flex items-center gap-2 text-indigo-700">{m.icon}<h3 className="font-semibold">{m.title}</h3></div>
@@ -499,7 +378,7 @@ export default function Site() {
       {/* Sectors */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold">{t.sectorsTitle}</h2>
+          <h2 className="text-3xl font-semibold">Sectors We Serve</h2>
           <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
             {sectors.map((s, i) => (
               <li key={i} className="flex items-start gap-3">
@@ -511,10 +390,10 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Case Studies */}
+      {/* Case Studies placeholder */}
       <section id="cases" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold">{t.casesTitle}</h2>
+          <h2 className="text-3xl font-semibold">Case Studies (Anonymized)</h2>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               { t: "Supplier Collusion in Manufacturing", d: "€250k exposure neutralized via entity mapping & interviews." },
@@ -533,7 +412,7 @@ export default function Site() {
       {/* Team / About Yves */}
       <section id="team" className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t.aboutTitle}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">About YB Consulting</h2>
           <div className="mt-4 text-slate-700 max-w-4xl leading-relaxed">
             <p>
               <strong>Yves B.</strong> — Founder & Director. 35 years of experience in business intelligence and risk management.
@@ -552,7 +431,7 @@ export default function Site() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6">
             <div className="flex items-center gap-2 font-semibold text-slate-800">
-              <MapPin className="w-5 h-5" /> {t.coverageLabel}
+              <MapPin className="w-5 h-5" /> European Coverage
             </div>
             <p className="mt-2 text-sm text-slate-600">
               Belgium • France • Luxembourg • Netherlands • Germany • Switzerland • Spain.
@@ -562,36 +441,36 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Contact */}
+      {/* Contact — intelligent, email-first */}
       <section id="contact" className="py-16 md:py-20 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute -inset-20 -z-10 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(99,102,241,0.3),rgba(15,23,42,0))]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2 yb-glass rounded-3xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-6 md:p-8">
-              <h2 className="text-2xl md:text-3xl font-semibold">{t.contactTitle}</h2>
-              <p className="mt-2 text-indigo-100">{t.contactHelp}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold">Request a Strategic Assessment</h2>
+              <p className="mt-2 text-indigo-100">
+                One click to clarity. Share your context — our Intelligence Desk will respond within 24 hours.
+              </p>
 
+              {/* smart email pill */}
               <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-white text-slate-900 px-4 py-2 font-medium shadow">
                 <Mail className="w-4 h-4" />
                 <a href="mailto:ybconsult.ai@proton.me">ybconsult.ai@proton.me</a>
               </div>
 
+              {/* (Optional) PDF secondary link */}
               <p className="mt-3 text-indigo-200 text-sm">
                 Prefer to read first?{" "}
-                <a href="/OnePager.pdf" download download className="underline decoration-indigo-300 hover:text-indigo-100">
+                <a href="/OnePager.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
                   Download our Anti-Fraud Overview (PDF)
-                </a>{" "}
-                ·{" "}
-                <a
-                  href="/site%20YBC%20fran%C3%A7ais%20PDF.pdf"
-                  download
-                  className="underline decoration-indigo-300 hover:text-indigo-100"
-                >
-                  Présentation FR (PDF)
                 </a>
-                .
+                {" "}•{" "}
+                <a href="/OnePager_FR.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
+                  Présentation (FR)
+                </a>.
               </p>
 
+              {/* Formspree form */}
               <form
                 action="https://formspree.io/f/xjkpneje"
                 method="POST"
@@ -600,6 +479,7 @@ export default function Site() {
                 <input type="hidden" name="source" value="Main website inquiry" />
                 <input type="hidden" name="_subject" value="YB Consulting — Website Inquiry" />
                 <input type="hidden" name="_redirect" value="https://yb-dgm-phaseshift-solutions.netlify.app/thanks.html" />
+                {/* honeypot */}
                 <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" style={{ display: "none" }} />
 
                 {[
@@ -624,7 +504,7 @@ export default function Site() {
                   <textarea
                     name="message"
                     placeholder=" "
-                    className="peer min-h-[140px] w-full rounded-2xl bg-white/10 ring-1 ring-white/20 px-4 py-4 outline-none text-white placeholder-transparent focus:ring-2 focus:ring-indigo-400"
+                    className="peer min-h[140px] w-full rounded-2xl bg-white/10 ring-1 ring-white/20 px-4 py-4 outline-none text-white placeholder-transparent focus:ring-2 focus:ring-indigo-400"
                   />
                   <span className="pointer-events-none absolute left-4 top-4 text-indigo-200 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-indigo-300 peer-focus:top-2 peer-focus:text-xs peer-focus:text-indigo-200">
                     Your situation in 3 lines
@@ -644,9 +524,8 @@ export default function Site() {
               </form>
             </div>
 
-            {/* Sidebar: privacy + ADDRESS */}
             <div className="lg:pl-2">
-              <div className="rounded-2xl border border-indigo-300/40 bg-indigo-50/40 p-6 text-slate-800">
+              <div className="rounded-2xl border border-indigo-300/40 bg-indigo-50/40 p-6 text-slate-8 00">
                 <div className="flex items-center gap-2 text-indigo-700 font-semibold">
                   <Shield className="w-5 h-5" /> Privacy & Compliance
                 </div>
@@ -656,20 +535,13 @@ export default function Site() {
                   <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> 100% legal methods</li>
                 </ul>
               </div>
-
-              {/* Address block */}
               <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
                 <div className="flex items-center gap-2 font-semibold text-slate-800">
-                  <MapPin className="w-5 h-5" /> {t.whereWeOperate}
+                  <MapPin className="w-5 h-5" /> Where we operate
                 </div>
                 <p className="mt-2 text-sm text-slate-600">
                   Belgium • France • Luxembourg • Netherlands • Germany • Switzerland • Spain. Others on request.
                 </p>
-                <div className="mt-4 text-sm text-slate-700">
-                  <div className="font-medium">Registered Office (Geneva)</div>
-                  <div>2 bis rue Saint Léger</div>
-                  <div>1205 Genève, Switzerland</div>
-                </div>
               </div>
             </div>
           </div>
@@ -685,12 +557,11 @@ export default function Site() {
           <div className="flex items-center gap-4 text-xs text-slate-500">
             <a href="/privacy.html" className="hover:underline">Privacy</a>
             <a href="/imprint.html" className="hover:underline">Imprint</a>
-            <a href="/OnePager.pdf" download download className="hover:underline">Overview (PDF)</a>
-            <a href="/site%20YBC%20fran%C3%A7ais%20PDF.pdf" download className="hover:underline">Présentation FR (PDF)</a>
+            <a href="/OnePager.pdf" download className="hover:underline">Overview (PDF)</a>
+            <a href="/OnePager_FR.pdf" download className="hover:underline">Présentation (FR)</a>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-
