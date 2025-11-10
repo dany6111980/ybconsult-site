@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   CheckCircle2,
   Shield,
@@ -312,7 +312,7 @@ export default function Site() {
                   {t.ctas.explore}
                 </a>
                 {/* PDFs: EN and FR */}
-                <a href="/OnePager.pdf" download className="yb-btn-ghost inline-flex items-center gap-2">
+                <a href="/OnePager.pdf" download download className="yb-btn-ghost inline-flex items-center gap-2">
                   {t.ctas.dlEN}
                 </a>
                 <a
@@ -578,7 +578,7 @@ export default function Site() {
 
               <p className="mt-3 text-indigo-200 text-sm">
                 Prefer to read first?{" "}
-                <a href="/OnePager.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
+                <a href="/OnePager.pdf" download download className="underline decoration-indigo-300 hover:text-indigo-100">
                   Download our Anti-Fraud Overview (PDF)
                 </a>{" "}
                 ·{" "}
@@ -685,7 +685,7 @@ export default function Site() {
           <div className="flex items-center gap-4 text-xs text-slate-500">
             <a href="/privacy.html" className="hover:underline">Privacy</a>
             <a href="/imprint.html" className="hover:underline">Imprint</a>
-            <a href="/OnePager.pdf" download className="hover:underline">Overview (PDF)</a>
+            <a href="/OnePager.pdf" download download className="hover:underline">Overview (PDF)</a>
             <a href="/site%20YBC%20fran%C3%A7ais%20PDF.pdf" download className="hover:underline">Présentation FR (PDF)</a>
           </div>
         </div>
@@ -693,3 +693,4 @@ export default function Site() {
     </div>
   );
 }
+
