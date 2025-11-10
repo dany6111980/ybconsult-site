@@ -1,0 +1,21 @@
+{
+  "mission": {
+    "title": "Notre Mission",
+    "body": "Nous associons l’expérience d’enquête et l’intelligence des données pour que les entreprises voient clair, agissent avec décision et préviennent les pertes avant qu’elles ne surviennent. Trois verbes résument notre philosophie : <strong>Détecter</strong> ce que les autres manquent, <strong>Structurer</strong> la complexité, et <strong>Sécuriser</strong> l’avenir par des systèmes préventifs."
+  },
+  "axes": {
+    "title": "Nos Trois Axes d’Intervention",
+    "prevent": {
+      "title": "Prévention — Due Diligence & Cartographie des Risques",
+      "body": "Vérifications d’antécédents, contrôle documentaire et cartographie de vulnérabilités dans les processus d’achat, de logistique, de finance et de gouvernance. Objectif : partenariats fiables et exposition maîtrisée."
+    },
+    "react": {
+      "title": "Réaction — Enquêtes & Structuration des Preuves",
+      "body": "Enquêtes de terrain, entretiens ciblés, analyses documentaires et liens assistés par IA. Résultat : chronologies juridiques, dossiers de preuves et prochaines actions claires."
+    },
+    "secure": {
+      "title": "Soutien aux Litiges — Construction du Dossier",
+      "body": "Nous structurons la documentation complexe pour les équipes juridiques : chronologies, graphes d’entités et modèles de risque transformant la complexité en crédibilité devant le tribunal."
+    }
+  }
+}

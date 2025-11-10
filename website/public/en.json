@@ -1,0 +1,21 @@
+{
+  "mission": {
+    "title": "Our Mission",
+    "body": "We bring investigative experience and data intelligence together so businesses can see clearly, act decisively, and prevent losses before they occur. Three verbs define our philosophy: <strong>Detect</strong> what others miss, <strong>Handle</strong> complexity into structure, and <strong>Secure</strong> the future with preventive systems."
+  },
+  "axes": {
+    "title": "Our Three Axes of Intervention",
+    "prevent": {
+      "title": "Prevention — Due Diligence & Risk Mapping",
+      "body": "Background checks on partners and processes, document verification, and vulnerability mapping in procurement, logistics, finance, and governance. Outcome: trusted partnerships and controlled exposure."
+    },
+    "react": {
+      "title": "Reaction — Investigations & Evidence Structuring",
+      "body": "Field investigations, targeted interviews, forensic document analysis, and AI-assisted link analysis. Outcome: legal-ready timelines, evidence packs, and clear next actions."
+    },
+    "secure": {
+      "title": "Litigation Support — Building the Case",
+      "body": "We organize complex documentation for legal teams: chronology, entity maps, and risk exposure models that transform complexity into credibility in court."
+    }
+  }
+}

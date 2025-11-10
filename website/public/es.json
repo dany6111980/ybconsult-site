@@ -1,0 +1,21 @@
+{
+  "mission": {
+    "title": "Nuestra Misión",
+    "body": "Combinamos experiencia investigativa e inteligencia de datos para que las empresas vean con claridad, actúen con decisión y eviten pérdidas antes de que ocurran. Tres verbos definen nuestra filosofía: <strong>Detectar</strong> lo que otros no ven, <strong>Estructurar</strong> la complejidad y <strong>Asegurar</strong> el futuro mediante sistemas preventivos."
+  },
+  "axes": {
+    "title": "Nuestros Tres Ejes de Intervención",
+    "prevent": {
+      "title": "Prevención — Due Diligence y Mapeo de Riesgos",
+      "body": "Verificación de antecedentes, control de documentos y mapeo de vulnerabilidades en adquisiciones, logística, finanzas y gobernanza. Resultado: asociaciones confiables y exposición controlada."
+    },
+    "react": {
+      "title": "Reacción — Investigaciones y Estructuración de Evidencias",
+      "body": "Investigaciones de campo, entrevistas dirigidas, análisis documental forense y análisis de vínculos asistido por IA. Resultado: cronologías listas para litigio y paquetes de pruebas claros."
+    },
+    "secure": {
+      "title": "Apoyo en Litigios — Construyendo el Caso",
+      "body": "Organizamos documentación compleja para equipos legales: cronologías, mapas de entidades y modelos de riesgo que transforman la complejidad en credibilidad ante el tribunal."
+    }
+  }
+}

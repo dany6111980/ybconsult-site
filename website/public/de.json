@@ -1,0 +1,21 @@
+{
+  "mission": {
+    "title": "Unsere Mission",
+    "body": "Wir verbinden Untersuchungserfahrung und Datenintelligenz, damit Unternehmen klar sehen, entschlossen handeln und Verluste vermeiden können. Drei Verben definieren unsere Philosophie: <strong>Erkennen</strong>, was andere übersehen, <strong>Strukturieren</strong> von Komplexität, und <strong>Sichern</strong> der Zukunft durch präventive Systeme."
+  },
+  "axes": {
+    "title": "Unsere Drei Interventionsachsen",
+    "prevent": {
+      "title": "Prävention — Due Diligence & Risikokartierung",
+      "body": "Überprüfungen von Partnern und Prozessen, Dokumentenverifikation und Schwachstellenanalyse in Beschaffung, Logistik, Finanzen und Governance. Ergebnis: vertrauenswürdige Partnerschaften und kontrollierte Risiken."
+    },
+    "react": {
+      "title": "Reaktion — Ermittlungen & Beweisstrukturierung",
+      "body": "Felduntersuchungen, gezielte Interviews, forensische Dokumentenanalyse und KI-gestützte Verknüpfungsanalysen. Ergebnis: gerichtsfertige Zeitpläne, Beweispakete und klare nächste Schritte."
+    },
+    "secure": {
+      "title": "Prozessunterstützung — Aufbau des Falls",
+      "body": "Wir organisieren komplexe Dokumentationen für Rechtsteams: Chronologien, Entitätsdiagramme und Risikomodelle, die Komplexität in Glaubwürdigkeit verwandeln."
+    }
+  }
+}
