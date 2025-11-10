@@ -1,3 +1,4 @@
+
 User-agent: *
-Allow: /
-Sitemap: https://yb-dgm-phaseshift-solutions.netlify.app/sitemap.xml
+Disallow:
+Sitemap: https://www.ybconsulting.ai/sitemap.xml
