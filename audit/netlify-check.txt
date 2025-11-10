@@ -1,0 +1,4 @@
+netlify.toml NOT found
+_redirects present
+Mapping /api/ask-yb -> /.netlify/functions/ask-yb ? False
+SPA fallback /* -> /index.html 200 ? True
