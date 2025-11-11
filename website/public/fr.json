@@ -1,3 +1,4 @@
+
 {
   "mission": {
     "title": "Notre Mission",
@@ -17,9 +18,7 @@
       "title": "Soutien aux Litiges — Construction du Dossier",
       "body": "Nous structurons la documentation complexe pour les équipes juridiques : chronologies, graphes d’entités et modèles de risque transformant la complexité en crédibilité devant le tribunal."
     }
-  }
-}
-{
+  },
   "hero": {
     "title": "Intelligence d’entreprise, Due Diligence & Gestion des Risques",
     "subtitle1": "Nous combinons l’enquête de terrain et la précision de l’IA pour transformer l’incertitude en clarté — et la clarté en action décisive.",
@@ -27,12 +26,27 @@
     "cta_request": "Demander une évaluation stratégique",
     "cta_explore": "Explorer notre expertise",
     "cta_overview": "Télécharger l’overview anti-fraude",
-    "cta_fr_pdf": "Présentation (FR) PDF"
+    "cta_fr_pdf": "Présentation (FR) PDF",
+
+    "subtitle": "Nous combinons l’enquête de terrain et la précision de l’IA pour transformer l’incertitude en clarté — et la clarté en action décisive.",
+    "coverage": "Opérations en Belgique, France, Luxembourg, Pays-Bas, Allemagne, Suisse et Espagne.",
+    "cta_assessment": "Demander une évaluation stratégique",
+    "cta_expertise": "Explorer notre expertise",
+    "cta_pdf_en": "Télécharger l’overview anti-fraude",
+    "cta_pdf_fr": "Présentation (FR) PDF"
   },
   "stats": {
     "detect": { "title": "Détecter", "label": "Signaux faibles & irrégularités" },
     "handle": { "title": "Traiter", "label": "Structurer le dossier en clarté" },
     "secure": { "title": "Sécuriser", "label": "Empêcher la récurrence avec des correctifs" }
+  },
+  "nav": {
+    "mission": "Mission",
+    "expertise": "Expertise",
+    "ai_bi_tools": "Outils IA & BI",
+    "evolution": "Évolution",
+    "method": "Méthode",
+    "team": "Équipe",
+    "contact": "Contact"
   }
 }
-

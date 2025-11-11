@@ -17,9 +17,7 @@
       "title": "Apoyo en Litigios — Construyendo el Caso",
       "body": "Organizamos documentación compleja para equipos legales: cronologías, mapas de entidades y modelos de riesgo que transforman la complejidad en credibilidad ante el tribunal."
     }
-  }
-}
-{
+  },
   "hero": {
     "title": "Inteligencia de Negocio, Due Diligence y Gestión de Riesgos",
     "subtitle1": "Combinamos investigación de campo y precisión de IA para convertir la incertidumbre en claridad — y la claridad en acción decisiva.",
@@ -27,11 +25,27 @@
     "cta_request": "Solicitar evaluación estratégica",
     "cta_explore": "Explorar nuestra pericia",
     "cta_overview": "Descargar resumen antifraude",
-    "cta_fr_pdf": "Presentación (FR) PDF"
+    "cta_fr_pdf": "Presentación (FR) PDF",
+
+    "subtitle": "Combinamos investigación de campo y precisión de IA para convertir la incertidumbre en claridad — y la claridad en acción decisiva.",
+    "coverage": "Operamos en Bélgica, Francia, Luxemburgo, Países Bajos, Alemania, Suiza y España.",
+    "cta_assessment": "Solicitar evaluación estratégica",
+    "cta_expertise": "Explorar nuestra pericia",
+    "cta_pdf_en": "Descargar resumen antifraude",
+    "cta_pdf_fr": "Presentación (FR) PDF"
   },
   "stats": {
     "detect": { "title": "Detectar", "label": "Irregularidades y señales débiles" },
     "handle": { "title": "Gestionar", "label": "Estructurar el caso con claridad" },
     "secure": { "title": "Asegurar", "label": "Prevenir recurrencia con correcciones" }
+  },
+  "nav": {
+    "mission": "Misión",
+    "expertise": "Experticia",
+    "ai_bi_tools": "Herramientas IA & BI",
+    "evolution": "Evolución",
+    "method": "Método",
+    "team": "Equipo",
+    "contact": "Contacto"
   }
 }
