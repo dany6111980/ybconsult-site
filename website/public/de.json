@@ -17,9 +17,7 @@
       "title": "Prozessunterstützung — Aufbau des Falls",
       "body": "Wir organisieren komplexe Dokumentationen für Rechtsteams: Chronologien, Entitätsdiagramme und Risikomodelle, die Komplexität in Glaubwürdigkeit verwandeln."
     }
-  }
-}
-{
+  },
   "hero": {
     "title": "Business Intelligence, Due Diligence & Risikomanagement",
     "subtitle1": "Wir verbinden Feldrecherche mit KI-Präzision, um Unsicherheit in Klarheit — und Klarheit in entschlossenes Handeln — zu verwandeln.",
@@ -27,11 +25,27 @@
     "cta_request": "Strategische Einschätzung anfordern",
     "cta_explore": "Unsere Expertise erkunden",
     "cta_overview": "Anti-Fraud-Übersicht herunterladen",
-    "cta_fr_pdf": "Präsentation (FR) PDF"
+    "cta_fr_pdf": "Präsentation (FR) PDF",
+
+    "subtitle": "Wir verbinden Feldrecherche mit KI-Präzision, um Unsicherheit in Klarheit — und Klarheit in entschlossenes Handeln — zu verwandeln.",
+    "coverage": "Tätig in Belgien, Frankreich, Luxemburg, Niederlande, Deutschland, Schweiz und Spanien.",
+    "cta_assessment": "Strategische Einschätzung anfordern",
+    "cta_expertise": "Unsere Expertise erkunden",
+    "cta_pdf_en": "Anti-Fraud-Übersicht herunterladen",
+    "cta_pdf_fr": "Präsentation (FR) PDF"
   },
   "stats": {
     "detect": { "title": "Erkennen", "label": "Unregelmäßigkeiten & Schwachsignale" },
     "handle": { "title": "Ordnen", "label": "Den Fall in Klarheit strukturieren" },
     "secure": { "title": "Absichern", "label": "Wiederholungen mit Maßnahmen verhindern" }
+  },
+  "nav": {
+    "mission": "Mission",
+    "expertise": "Expertise",
+    "ai_bi_tools": "KI- & BI-Tools",
+    "evolution": "Entwicklung",
+    "method": "Methode",
+    "team": "Team",
+    "contact": "Kontakt"
   }
 }
