@@ -15,6 +15,8 @@ import {
   CircuitBoard,
   BookOpen,
 } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher.jsx";
+import { useI18n } from "./main.jsx";
 
 /* assets placed in /public */
 const logoSrc = "/logo-yb.png";   // put "logo YB consulting.png" as /public/logo-yb.png
@@ -26,22 +28,25 @@ const stats = [
   { value: "Secure", label: "Prevent recurrence with fixes" },
 ];
 
-/* high-level pillars */
+/* high-level pillars (kept for reference; Axes UI now uses i18n keys below) */
 const pillars = [
   {
     icon: <Shield className="w-5 h-5" />,
     title: "Prevention — Due Diligence & Risk Mapping",
-    text: "Background checks on partners and processes, document verification, and vulnerability mapping in procurement, logistics, finance, and governance. Outcome: trusted partnerships and controlled exposure.",
+    text:
+      "Background checks on partners and processes, document verification, and vulnerability mapping in procurement, logistics, finance, and governance. Outcome: trusted partnerships and controlled exposure.",
   },
   {
     icon: <FileSearch className="w-5 h-5" />,
     title: "Reaction — Investigations & Evidence Structuring",
-    text: "Field investigations, targeted interviews, forensic document analysis, and AI-assisted link analysis. Outcome: legal-ready timelines, evidence packs, and clear next actions.",
+    text:
+      "Field investigations, targeted interviews, forensic document analysis, and AI-assisted link analysis. Outcome: legal-ready timelines, evidence packs, and clear next actions.",
   },
   {
     icon: <BookOpen className="w-5 h-5" />,
     title: "Litigation Support — Building the Case",
-    text: "We organize complex documentation for legal teams: chronology, entity maps, and risk exposure models that transform complexity into credibility in court.",
+    text:
+      "We organize complex documentation for legal teams: chronology, entity maps, and risk exposure models that transform complexity into credibility in court.",
   },
 ];
 
@@ -86,19 +91,23 @@ const impact = [
 
 export default function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useI18n();
 
   /* tiny scroll-reveal for glass cards / photos / metrics */
   useEffect(() => {
     const els = document.querySelectorAll(".yb-photo, .yb-glass, .yb-metric");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.style.transform = "translateY(0)";
-          e.target.style.opacity = "1";
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.style.transform = "translateY(0)";
+            e.target.style.opacity = "1";
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
 
     els.forEach((el) => {
       el.style.opacity = "0";
@@ -243,33 +252,46 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Mission */}
+      {/* Mission (i18n) */}
       <section id="mission" className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">Our Mission</h2>
-          <p className="mt-3 text-slate-700 leading-relaxed max-w-4xl">
-            We bring investigative experience and data intelligence together so businesses can see clearly,
-            act decisively, and prevent losses before they occur. Three verbs define our philosophy:
-            <strong> Detect</strong> what others miss, <strong>Handle</strong> complexity into structure, and
-            <strong> Secure</strong> the future with preventive systems.
-          </p>
+          <h2 className="text-3xl font-semibold tracking-tight">{t("mission.title")}</h2>
+          <p
+            className="mt-3 text-slate-700 leading-relaxed max-w-4xl"
+            // mission.body contains markup in your JSONs
+            dangerouslySetInnerHTML={{ __html: t("mission.body") }}
+          />
         </div>
       </section>
 
-      {/* Expertise */}
+      {/* Expertise (Axes) — i18n */}
       <section id="services" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">Our Three Axes of Intervention</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">{t("axes.title")}</h2>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
-            {pillars.map((p, i) => (
-              <div key={i} className="yb-glass rounded-2xl border border-slate-200/60 bg-gradient-to-b from-slate-50/70 to-white p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition">
-                <div className="flex items-center gap-2 text-indigo-700">{p.icon}<h3 className="font-semibold">{p.title}</h3></div>
-                <p className="mt-2 text-sm text-slate-700">{p.text}</p>
+            {[
+              { k: "prevent", icon: <Shield className="w-5 h-5" /> },
+              { k: "react",   icon: <FileSearch className="w-5 h-5" /> },
+              { k: "secure",  icon: <BookOpen className="w-5 h-5" /> },
+            ].map(({ k, icon }) => (
+              <div
+                key={k}
+                className="yb-glass rounded-2xl border border-slate-200/60 bg-gradient-to-b from-slate-50/70 to-white p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition"
+              >
+                <div className="flex items-center gap-2 text-indigo-700">
+                  {icon}
+                  <h3 className="font-semibold">{t(`axes.${k}.title`)}</h3>
+                </div>
+                <p className="mt-2 text-sm text-slate-700">{t(`axes.${k}.body`)}</p>
                 <div className="mt-4 text-sm text-slate-700">
-                  <span className="font-medium">Why it matters:</span> reduce exposure, neutralize manipulations, and create legal-grade clarity.<br />
-                  <span className="font-medium">How we work:</span> on-site checks + interviews + forensic docs + AI link analysis.<br />
-                  <span className="font-medium">Deliverables:</span> due-diligence reports, risk maps, timelines, entity graphs, evidence packs.<br />
-                  <span className="font-medium">Timeline:</span> calibrated per case volume (typically 1–4 weeks).
+                  <span className="font-medium">Why it matters:</span> reduce exposure, neutralize
+                  manipulations, and create legal-grade clarity.<br />
+                  <span className="font-medium">How we work:</span> on-site checks + interviews +
+                  forensic docs + AI link analysis.<br />
+                  <span className="font-medium">Deliverables:</span> due-diligence reports, risk
+                  maps, timelines, entity graphs, evidence packs.<br />
+                  <span className="font-medium">Timeline:</span> calibrated per case volume
+                  (typically 1–4 weeks).
                 </div>
               </div>
             ))}
@@ -305,7 +327,7 @@ export default function Site() {
       <section id="bi" className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-semibold tracking-tight">Business Intelligence Tools & AI Management</h2>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="rounded-2xl border border-slate-200 p-6">
               <div className="flex items-center gap-2 text-indigo-700"><LineChart className="w-5 h-5" /><h3 className="font-semibold">Decision Dashboards</h3></div>
               <p className="mt-2 text-slate-700 text-sm">Unify operations, risk and finance in one view. Real-time insights for owners and legal teams.</p>
@@ -329,18 +351,30 @@ export default function Site() {
             The Evolution of Intelligence — From Magnifying Glass to AI Chip
           </h2>
           <p className="text-slate-600 leading-relaxed max-w-3xl mx-auto">
-            Traditional investigation relied on manual scrutiny. We fuse deep human expertise with artificial intelligence so every document, transaction, and interaction becomes a signal in a living intelligence ecosystem.
+            Traditional investigation relied on manual scrutiny. We fuse deep human expertise with
+            artificial intelligence so every document, transaction, and interaction becomes a signal in a
+            living intelligence ecosystem.
           </p>
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
             <div className="rounded-2xl bg-white/60 backdrop-blur-sm ring-1 ring-slate-200 p-6 shadow-sm">
               <h3 className="text-xl font-semibold text-indigo-700 mb-2">The Traditional Model</h3>
-              <p className="text-slate-600">Manual verification, long cycles, fragmented data, intuition-led. Valuable but limited by scope and speed.</p>
-              <div className="mt-3 text-sm text-slate-500 italic">🔍 Magnifying glass: precision by focus, limited by capacity.</div>
+              <p className="text-slate-600">
+                Manual verification, long cycles, fragmented data, intuition-led. Valuable but limited by
+                scope and speed.
+              </p>
+              <div className="mt-3 text-sm text-slate-500 italic">
+                🔍 Magnifying glass: precision by focus, limited by capacity.
+              </div>
             </div>
             <div className="rounded-2xl bg-indigo-600/90 text-white ring-1 ring-indigo-300 p-6 shadow-lg">
               <h3 className="text-xl font-semibold mb-2">The AI-Driven Model</h3>
-              <p className="text-indigo-100">Automated parsing, cross-document patterns, predictive alerts. Intelligence that doesn’t just observe — it anticipates.</p>
-              <div className="mt-3 text-sm italic text-indigo-200">💠 AI chip: precision by scale, power by connection.</div>
+              <p className="text-indigo-100">
+                Automated parsing, cross-document patterns, predictive alerts. Intelligence that doesn’t
+                just observe — it anticipates.
+              </p>
+              <div className="mt-3 text-sm italic text-indigo-200">
+                💠 AI chip: precision by scale, power by connection.
+              </div>
             </div>
           </div>
         </div>
@@ -365,7 +399,8 @@ export default function Site() {
       <section className="max-w-6xl mx-auto px-6 py-16" id="gallery">
         <h2 className="text-3xl font-semibold tracking-tight mb-6">The Work, Quietly</h2>
         <p className="text-slate-600 max-w-3xl">
-          Investigation, pattern recognition, prevention. Traditional craft — upgraded with today’s intelligence.
+          Investigation, pattern recognition, prevention. Traditional craft — upgraded with today’s
+          intelligence.
         </p>
 
         <div className="mt-8 grid md:grid-cols-3 gap-5">
@@ -379,7 +414,7 @@ export default function Site() {
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-semibold">Sectors We Serve</h2>
-          <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
             {sectors.map((s, i) => (
               <li key={i} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5" />
@@ -415,12 +450,14 @@ export default function Site() {
           <h2 className="text-3xl font-semibold tracking-tight">About YB Consulting</h2>
           <div className="mt-4 text-slate-700 max-w-4xl leading-relaxed">
             <p>
-              <strong>Yves B.</strong> — Founder & Director. 35 years of experience in business intelligence and risk management.
-              Former leadership roles with Kroll Associates (NY), CITIGATE Global Intelligence, and Intelynx.
-              Based in Geneva, Switzerland; active across Europe with trusted investigators, analysts, and technologists.
+              <strong>Yves B.</strong> — Founder & Director. 35 years of experience in business
+              intelligence and risk management. Former leadership roles with Kroll Associates (NY),
+              CITIGATE Global Intelligence, and Intelynx. Based in Geneva, Switzerland; active across
+              Europe with trusted investigators, analysts, and technologists.
             </p>
             <p className="mt-3">
-              Our ethos: discretion, evidence, and strategic precision. Where complexity hides, intelligence reveals.
+              Our ethos: discretion, evidence, and strategic precision. Where complexity hides,
+              intelligence reveals.
             </p>
           </div>
         </div>
@@ -434,8 +471,8 @@ export default function Site() {
               <MapPin className="w-5 h-5" /> European Coverage
             </div>
             <p className="mt-2 text-sm text-slate-600">
-              Belgium • France • Luxembourg • Netherlands • Germany • Switzerland • Spain.
-              Other regions available upon request.
+              Belgium • France • Luxembourg • Netherlands • Germany • Switzerland • Spain. Other
+              regions available upon request.
             </p>
           </div>
         </div>
@@ -449,7 +486,8 @@ export default function Site() {
             <div className="lg:col-span-2 yb-glass rounded-3xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-6 md:p-8">
               <h2 className="text-2xl md:text-3xl font-semibold">Request a Strategic Assessment</h2>
               <p className="mt-2 text-indigo-100">
-                One click to clarity. Share your context — our Intelligence Desk will respond within 24 hours.
+                One click to clarity. Share your context — our Intelligence Desk will respond within 24
+                hours.
               </p>
 
               {/* smart email pill */}
@@ -463,11 +501,12 @@ export default function Site() {
                 Prefer to read first?{" "}
                 <a href="/OnePager.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
                   Download our Anti-Fraud Overview (PDF)
-                </a>
-                {" "}•{" "}
+                </a>{" "}
+                •{" "}
                 <a href="/OnePager_FR.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
                   Présentation (FR)
-                </a>.
+                </a>
+                .
               </p>
 
               {/* Formspree form */}
@@ -478,9 +517,19 @@ export default function Site() {
               >
                 <input type="hidden" name="source" value="Main website inquiry" />
                 <input type="hidden" name="_subject" value="YB Consulting — Website Inquiry" />
-                <input type="hidden" name="_redirect" value="https://yb-dgm-phaseshift-solutions.netlify.app/thanks.html" />
+                <input
+                  type="hidden"
+                  name="_redirect"
+                  value="https://yb-dgm-phaseshift-solutions.netlify.app/thanks.html"
+                />
                 {/* honeypot */}
-                <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" style={{ display: "none" }} />
+                <input
+                  type="text"
+                  name="_gotcha"
+                  tabIndex="-1"
+                  autoComplete="off"
+                  style={{ display: "none" }}
+                />
 
                 {[
                   { name: "name", type: "text", label: "Name", required: true },
@@ -522,6 +571,11 @@ export default function Site() {
                   Confidential • GDPR Compliant • Legal Methods • Field Verified
                 </p>
               </form>
+
+              {/* Address block */}
+              <p className="mt-6 text-indigo-200 text-sm">
+                YB Consulting — 2 bis rue Saint Léger, 1205 Genève (Switzerland)
+              </p>
             </div>
 
             <div className="lg:pl-2">
@@ -551,8 +605,12 @@ export default function Site() {
       {/* Footer */}
       <footer className="py-8 border-t border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-slate-600">
+          <div className="text-sm text-slate-600 text-center md:text-left">
             © {new Date().getFullYear()} YB Consulting — Business Intelligence & Risk Management Solutions
+            <br />
+            <span className="text-xs text-slate-500">
+              2 bis rue Saint Léger, 1205 Genève, Switzerland
+            </span>
           </div>
           <div className="flex items-center gap-4 text-xs text-slate-500">
             <a href="/privacy.html" className="hover:underline">Privacy</a>
@@ -562,6 +620,9 @@ export default function Site() {
           </div>
         </div>
       </footer>
+
+      {/* Floating language switcher */}
+      <LanguageSwitcher />
     </div>
   );
 }
