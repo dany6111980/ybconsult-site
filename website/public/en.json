@@ -17,9 +17,7 @@
       "title": "Litigation Support — Building the Case",
       "body": "We organize complex documentation for legal teams: chronology, entity maps, and risk exposure models that transform complexity into credibility in court."
     }
-  }
-}
-{
+  },
   "hero": {
     "title": "Business Intelligence, Due Diligence & Risk Management",
     "subtitle1": "We combine field investigation and AI precision to turn uncertainty into clarity — and clarity into decisive action.",
@@ -27,11 +25,27 @@
     "cta_request": "Request Strategic Assessment",
     "cta_explore": "Explore Our Expertise",
     "cta_overview": "Download Anti-Fraud Overview",
-    "cta_fr_pdf": "Présentation (FR) PDF"
+    "cta_fr_pdf": "Présentation (FR) PDF",
+
+    "subtitle": "We combine field investigation and AI precision to turn uncertainty into clarity — and clarity into decisive action.",
+    "coverage": "Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.",
+    "cta_assessment": "Request Strategic Assessment",
+    "cta_expertise": "Explore Our Expertise",
+    "cta_pdf_en": "Download Anti-Fraud Overview",
+    "cta_pdf_fr": "Présentation (FR) PDF"
   },
   "stats": {
     "detect": { "title": "Detect", "label": "Irregularities & weak signals" },
     "handle": { "title": "Handle", "label": "Structure the case into clarity" },
     "secure": { "title": "Secure", "label": "Prevent recurrence with fixes" }
+  },
+  "nav": {
+    "mission": "Mission",
+    "expertise": "Expertise",
+    "ai_bi_tools": "AI & BI Tools",
+    "evolution": "Evolution",
+    "method": "Method",
+    "team": "Team",
+    "contact": "Contact"
   }
 }

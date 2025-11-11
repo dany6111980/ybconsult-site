@@ -1,38 +1,47 @@
 // website/src/LanguageSwitcher.jsx
-import React from "react";
+import { useI18n } from "./main.jsx";
 
-const langs = [
-  { code: "en", label: "EN" },
-  { code: "fr", label: "FR" },
-  { code: "de", label: "DE" },
-  { code: "es", label: "ES" },
-];
+const SUPPORTED = ["en", "fr", "de", "es"];
 
-export default function LanguageSwitcher({ className = "" }) {
-  // infer current lang from the first path segment
-  const seg = (typeof window !== "undefined" ? window.location.pathname.split("/")[1] : "") || "";
-  const active = ["fr", "de", "es"].includes(seg) ? seg : "en";
+export default function LanguageSwitcher() {
+  const { i18n } = useI18n();
 
-  const go = (code) => {
-    const rest = (typeof window !== "undefined" ? window.location.pathname.split("/").slice(2).join("/") : "") || "";
-    const base = code === "en" ? "" : `/${code}`;
-    const path = `/${rest}`.replace(/^\/+$/, "/");
-    window.location.pathname = `${base}${path}`;
+  const setLang = (lng) => {
+    if (!SUPPORTED.includes(lng)) return;
+
+    // change i18n language
+    i18n.changeLanguage(lng);
+
+    // path prefix logic: keep EN at root (/), others prefixed (e.g., /fr)
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    const first = parts[0];
+
+    const hasPrefix = SUPPORTED.includes(first);
+    if (lng === "en") {
+      // remove prefix if present
+      const rest = hasPrefix ? parts.slice(1).join("/") : parts.join("/");
+      const newPath = "/" + rest;
+      window.history.replaceState(null, "", newPath);
+    } else {
+      // add/replace prefix
+      const rest = hasPrefix ? parts.slice(1).join("/") : parts.join("/");
+      const newPath = `/${lng}${rest ? "/" + rest : ""}`;
+      window.history.replaceState(null, "", newPath);
+    }
   };
 
   return (
-    <div className={`inline-flex items-center gap-1 ${className}`}>
-      {langs.map((l) => (
+    <div className="flex items-center gap-2">
+      {SUPPORTED.map((lng) => (
         <button
-          key={l.code}
-          onClick={() => go(l.code)}
-          className={`px-2.5 py-1 text-xs rounded-md border transition
-            ${active === l.code
-              ? "bg-slate-900 text-white border-slate-900"
-              : "bg-white text-slate-700 border-slate-300 hover:border-slate-400"}`}
-          aria-current={active === l.code ? "page" : undefined}
+          key={lng}
+          onClick={() => setLang(lng)}
+          className={`px-2 py-1 text-xs rounded-lg border ${
+            i18n.language === lng ? "bg-slate-900 text-white" : "bg-white"
+          }`}
+          aria-label={`Switch language to ${lng}`}
         >
-          {l.label}
+          {lng.toUpperCase()}
         </button>
       ))}
     </div>
