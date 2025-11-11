@@ -19,3 +19,20 @@
     }
   }
 }
+{
+  "hero": {
+    "title": "Intelligence d’entreprise, Due Diligence & Gestion des Risques",
+    "subtitle1": "Nous combinons l’enquête de terrain et la précision de l’IA pour transformer l’incertitude en clarté — et la clarté en action décisive.",
+    "subtitle2": "Opérations en Belgique, France, Luxembourg, Pays-Bas, Allemagne, Suisse et Espagne.",
+    "cta_request": "Demander une évaluation stratégique",
+    "cta_explore": "Explorer notre expertise",
+    "cta_overview": "Télécharger l’overview anti-fraude",
+    "cta_fr_pdf": "Présentation (FR) PDF"
+  },
+  "stats": {
+    "detect": { "title": "Détecter", "label": "Signaux faibles & irrégularités" },
+    "handle": { "title": "Traiter", "label": "Structurer le dossier en clarté" },
+    "secure": { "title": "Sécuriser", "label": "Empêcher la récurrence avec des correctifs" }
+  }
+}
+

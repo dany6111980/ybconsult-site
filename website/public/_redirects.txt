@@ -1,3 +1,5 @@
+/api/ask-yb  /.netlify/functions/ask-yb  200
+
 /api/*                   /.netlify/functions/:splat  200
 /OnePager*.pdf           /:splat                      200
 /*.pdf                   /:splat                      200

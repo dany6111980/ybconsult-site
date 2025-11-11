@@ -19,3 +19,19 @@
     }
   }
 }
+{
+  "hero": {
+    "title": "Business Intelligence, Due Diligence & Risk Management",
+    "subtitle1": "We combine field investigation and AI precision to turn uncertainty into clarity — and clarity into decisive action.",
+    "subtitle2": "Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.",
+    "cta_request": "Request Strategic Assessment",
+    "cta_explore": "Explore Our Expertise",
+    "cta_overview": "Download Anti-Fraud Overview",
+    "cta_fr_pdf": "Présentation (FR) PDF"
+  },
+  "stats": {
+    "detect": { "title": "Detect", "label": "Irregularities & weak signals" },
+    "handle": { "title": "Handle", "label": "Structure the case into clarity" },
+    "secure": { "title": "Secure", "label": "Prevent recurrence with fixes" }
+  }
+}

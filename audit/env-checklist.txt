@@ -1,0 +1,6 @@
+Required env vars:
+ - OPENAI_API_KEY (Netlify > Site settings > Environment)
+ - PLAUSIBLE domain configured: ybconsulting.ai (already in HTML)
+ - NODE version in Netlify: 20.x recommended
+ - Functions dir: website/netlify/functions
+ - Publish dir: dist (NOT website/dist if base=website in Netlify UI)

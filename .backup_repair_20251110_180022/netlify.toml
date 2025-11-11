@@ -1,0 +1,11 @@
+[build]
+base    = "website"
+publish = "website/dist"
+command = "npm run build"
+
+[functions]
+node_bundler = "esbuild"
+included_files = ["website/public/*.json"]
+
+[build.environment]
+NODE_VERSION = "18.20.3"
