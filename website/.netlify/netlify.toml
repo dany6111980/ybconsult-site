@@ -1,0 +1,79 @@
+functionsDirectory = "C:\\Users\\danyg\\Documents\\YB_YMM_WEBSITE\\website\\website\\netlify\\functions"
+functionsDirectoryOrigin = "config"
+plugins = []
+headers = []
+
+[build]
+publish = "C:\\Users\\danyg\\Documents\\YB_YMM_WEBSITE\\website\\dist"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "C:\\Users\\danyg\\Documents\\YB_YMM_WEBSITE\\website"
+command = "npm run build"
+functions = "C:\\Users\\danyg\\Documents\\YB_YMM_WEBSITE\\website\\website\\netlify\\functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[functions]
+
+[functions."*"]
+included_files = ["website/public/*.json"]
+
+[[redirects]]
+from = "/api/ask-yb"
+to = "/.netlify/functions/ask-yb"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "api/*"
+to = "/.netlify/functions/:splat"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/ask-yb"
+to = "/.netlify/functions/ask-yb"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
