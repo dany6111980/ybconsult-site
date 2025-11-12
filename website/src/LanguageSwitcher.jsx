@@ -1,21 +1,38 @@
-import { useTranslation } from "react-i18next";
+import React from "react";
+import { useI18n } from "./main.jsx";
 
-const SUPPORTED = ["en","fr","de","es"];
+const SUPPORTED = ["en", "fr", "de", "es"];
 
 export default function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { lang, setLang } = useI18n();
+  const current = (lang || "en").toLowerCase();
+
+  function change(code) {
+    const c = code.toLowerCase();
+    localStorage.setItem("yb-lang", c);
+    setLang(c);            // update context now
+    // Re-load to ensure fresh JSON & all sections reflect the change
+    window.location.reload();
+  }
+
   return (
     <div className="flex items-center gap-2">
-      {SUPPORTED.map(code => (
-        <button
-          key={code}
-          onClick={() => i18n.changeLanguage(code)}
-          className={i18n.language?.startsWith(code) ? "active-lang" : "muted-lang"}
-          aria-label={`Switch language to ${code.toUpperCase()}`}
-        >
-          {code.toUpperCase()}
-        </button>
-      ))}
+      {SUPPORTED.map((code) => {
+        const active = current.startsWith(code);
+        return (
+          <button
+            key={code}
+            onClick={() => change(code)}
+            aria-label={`Switch language to ${code.toUpperCase()}`}
+            className={
+              "px-2 py-1 rounded-md text-sm transition " +
+              (active ? "bg-indigo-600 text-white" : "bg-transparent text-slate-500 hover:text-slate-800")
+            }
+          >
+            {code.toUpperCase()}
+          </button>
+        );
+      })}
     </div>
   );
 }

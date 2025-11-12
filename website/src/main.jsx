@@ -1,103 +1,90 @@
 ﻿
-// website/src/main.jsx
-import React from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css"; // <-- ensure styles are loaded in prod & locally
-
-// i18n core
-import i18next from "i18next";
-import { initReactI18next } from "react-i18next";
+import Site from "./Site.jsx";
 
 /**
- * Small helper hook that LanguageSwitcher.jsx imports.
- * It exposes the active language, a changeLanguage() helper, and t().
+ * Lightweight i18n context used across the app.
+ * Loads JSON from /i18n/<lang>.json OR /<lang>.json (whichever exists first),
+ * caches to localStorage, and falls back to English.
  */
-export function useI18n() {
-  const [lng, setLng] = React.useState((i18next.language || "en").slice(0, 2));
 
-  React.useEffect(() => {
-    const onChange = () => setLng((i18next.language || "en").slice(0, 2));
-    i18next.on("languageChanged", onChange);
-    return () => i18next.off("languageChanged", onChange);
-  }, []);
+const I18nContext = createContext({ t: (k) => k, lang: "en" });
+export const useI18n = () => useContext(I18nContext);
 
-  return {
-    i18n: i18next,
-    t: i18next.t.bind(i18next),
-    lng,
-    changeLanguage: (code) => i18next.changeLanguage(code),
-  };
+// Figure out preferred language (persisted, then browser)
+function pickInitialLang() {
+  const saved = localStorage.getItem("yb-lang");
+  if (saved) return saved;
+  const nav = navigator.language || navigator.userLanguage || "en";
+  return (nav.split("-")[0] || "en").toLowerCase();
 }
 
-/**
- * Safe dynamic import helper.
- * If a plugin isn't available (local/prod), we simply continue without it.
- */
-async function safeImport(mod) {
+async function fetchJson(url) {
   try {
-    const m = await import(mod);
-    return m?.default ?? m;
+    const res = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
   } catch {
     return null;
   }
 }
 
-async function bootstrap() {
-  const isBrowser = typeof window !== "undefined";
-
-  // Optional plugins (don’t crash if missing)
-  const LanguageDetector = isBrowser
-    ? await safeImport("i18next-browser-languagedetector")
-    : null;
-  const HttpBackend = isBrowser ? await safeImport("i18next-http-backend") : null;
-
-  i18next.use(initReactI18next);
-  if (LanguageDetector) i18next.use(LanguageDetector);
-  if (HttpBackend) i18next.use(HttpBackend);
-
-  // If backend isn’t available, keep the app alive with empty inline resources.
-  const fallbackResources = {
-    en: { translation: {} },
-    fr: { translation: {} },
-    de: { translation: {} },
-    es: { translation: {} },
-  };
-
-  await i18next.init({
-    fallbackLng: ["en"],
-    supportedLngs: ["en", "fr", "de", "es"],
-    nonExplicitSupportedLngs: true,
-    load: "languageOnly",
-    debug: false,
-
-    // Fetch JSON from /public when backend is present
-    backend: { loadPath: "/{{lng}}.json" },
-    resources: HttpBackend ? undefined : fallbackResources,
-
-    // Prefer URL path (/fr, /de, /es), then browser/cookies/localStorage
-    detection: {
-      order: ["path", "navigator", "cookie", "localStorage", "htmlTag"],
-      caches: ["localStorage", "cookie"],
-    },
-
-    interpolation: { escapeValue: false },
-    returnNull: false,
-    returnEmptyString: false,
-
-    // Avoid Suspense requirement in react-i18next
-    react: { useSuspense: false },
-  });
-
-  // Keep <html lang=".."> in sync (helps SEO/a11y)
-  const setHtmlLang = () =>
-    document?.documentElement && (document.documentElement.lang = (i18next.language || "en").slice(0, 2));
-  setHtmlLang();
-  i18next.on("languageChanged", setHtmlLang);
-
-  // Mount only after i18n is ready (prevents white screen)
-  const root = ReactDOM.createRoot(document.getElementById("root"));
-  root.render(<App />);
+async function loadTranslations(lang) {
+  // Try multiple well-known locations so we don’t get out-of-sync again.
+  const candidates = [
+    `/i18n/${lang}.json`,
+    `/${lang}.json`,
+    `/locales/${lang}.json`,
+  ];
+  for (const url of candidates) {
+    const data = await fetchJson(url);
+    if (data) return data;
+  }
+  // Last resort: English
+  if (lang !== "en") {
+    const fallback = await fetchJson(`/i18n/en.json`) || await fetchJson(`/en.json`);
+    if (fallback) return fallback;
+  }
+  return {}; // keep UI but show keys if nothing found
 }
 
-bootstrap();
+// Very small “t” function with dotted path support.
+function makeTranslator(dict) {
+  return function t(key) {
+    try {
+      return key.split(".").reduce((obj, k) => (obj == null ? undefined : obj[k]), dict) ?? key;
+    } catch {
+      return key;
+    }
+  };
+}
+
+function I18nProvider({ children }) {
+  const [lang, setLang] = useState(pickInitialLang());
+  const [dict, setDict] = useState({});
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const data = await loadTranslations(lang);
+      if (!alive) return;
+      setDict(data || {});
+      document.documentElement.setAttribute("lang", lang);
+      window.__YB_LANG__ = lang; // expose for the switcher
+    })();
+    return () => { alive = false; };
+  }, [lang]);
+
+  const value = useMemo(() => ({ t: makeTranslator(dict), lang, setLang }), [dict, lang]);
+
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <I18nProvider>
+      <Site />
+    </I18nProvider>
+  </React.StrictMode>
+);
