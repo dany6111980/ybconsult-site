@@ -2,34 +2,27 @@
 {
   "mission": {
     "title": "Notre Mission",
-    "body": "Nous associons l’expérience d’enquête et l’intelligence des données pour que les entreprises voient clair, agissent avec décision et préviennent les pertes avant qu’elles ne surviennent. Trois verbes résument notre philosophie : <strong>Détecter</strong> ce que les autres manquent, <strong>Structurer</strong> la complexité, et <strong>Sécuriser</strong> l’avenir par des systèmes préventifs."
+    "body": "Nous associons l’expérience d’enquête et l’intelligence des données pour que les entreprises voient clair, agissent avec décision et préviennent les pertes. Trois verbes résument notre philosophie : <strong>Détecter</strong> ce que les autres manquent, <strong>Structurer</strong> la complexité, et <strong>Sécuriser</strong> l’avenir par des systèmes préventifs."
   },
   "axes": {
-    "title": "Nos Trois Axes d’Intervention",
+    "title": "Nos Trois Axes d’intervention",
     "prevent": {
-      "title": "Prévention — Due Diligence & Cartographie des Risques",
-      "body": "Vérifications d’antécédents, contrôle documentaire et cartographie de vulnérabilités dans les processus d’achat, de logistique, de finance et de gouvernance. Objectif : partenariats fiables et exposition maîtrisée."
+      "title": "Prévenir — Due diligence & cartographie des risques",
+      "body": "Vérifications d’antécédents, contrôle documentaire et analyse de vulnérabilités dans les achats, la logistique, la finance et la gouvernance. Objectif : partenariats fiables et exposition maîtrisée."
     },
     "react": {
-      "title": "Réaction — Enquêtes & Structuration des Preuves",
+      "title": "Réagir — Enquêtes & structuration des preuves",
       "body": "Enquêtes de terrain, entretiens ciblés, analyses documentaires et liens assistés par IA. Résultat : chronologies juridiques, dossiers de preuves et prochaines actions claires."
     },
     "secure": {
-      "title": "Soutien aux Litiges — Construction du Dossier",
-      "body": "Nous structurons la documentation complexe pour les équipes juridiques : chronologies, graphes d’entités et modèles de risque transformant la complexité en crédibilité devant le tribunal."
+      "title": "Sécuriser — Soutien au contentieux",
+      "body": "Nous structurons la documentation complexe pour les équipes juridiques : chronologies, graphes d’entités et modèles de risque qui transforment la complexité en crédibilité."
     }
   },
   "hero": {
-    "title": "Intelligence d’entreprise, Due Diligence & Gestion des Risques",
-    "subtitle1": "Nous combinons l’enquête de terrain et la précision de l’IA pour transformer l’incertitude en clarté — et la clarté en action décisive.",
-    "subtitle2": "Opérations en Belgique, France, Luxembourg, Pays-Bas, Allemagne, Suisse et Espagne.",
-    "cta_request": "Demander une évaluation stratégique",
-    "cta_explore": "Explorer notre expertise",
-    "cta_overview": "Télécharger l’overview anti-fraude",
-    "cta_fr_pdf": "Présentation (FR) PDF",
-
+    "title": "Intelligence d’entreprise, Due diligence & Gestion des risques",
     "subtitle": "Nous combinons l’enquête de terrain et la précision de l’IA pour transformer l’incertitude en clarté — et la clarté en action décisive.",
-    "coverage": "Opérations en Belgique, France, Luxembourg, Pays-Bas, Allemagne, Suisse et Espagne.",
+    "coverage": "Belgique, France, Luxembourg, Pays-Bas, Allemagne, Suisse, Espagne.",
     "cta_assessment": "Demander une évaluation stratégique",
     "cta_expertise": "Explorer notre expertise",
     "cta_pdf_en": "Télécharger l’overview anti-fraude",
