@@ -1,5 +1,4 @@
-﻿
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import {
   CheckCircle2,
   Shield,
@@ -19,13 +18,38 @@ import LanguageSwitcher from "./LanguageSwitcher.jsx";
 import { useI18n } from "./main.jsx";
 
 /* assets placed in /public */
-const logoSrc = "/logo-yb.png"; // put "logo YB consulting.png" as /public/logo-yb.png
+const logoSrc = "/logo-yb.png";   // put "logo YB consulting.png" as /public/logo-yb.png
+const brochureFR = "/brochure-fr.png"; // <-- banner image we’ll show for FR
 
 /* top stats */
 const stats = [
   { value: "Detect", label: "Irregularities & weak signals" },
   { value: "Handle", label: "Structure the case into clarity" },
   { value: "Secure", label: "Prevent recurrence with fixes" },
+];
+
+/* method cards */
+const methods = [
+  {
+    icon: <Building2 className="w-5 h-5" />,
+    title: "Verification",
+    text: "On-site checks: warehouses, stocks, procedures, and controls—see reality beyond reports.",
+  },
+  {
+    icon: <FileSearch className="w-5 h-5" />,
+    title: "Interviews",
+    text: "From operator to CEO: targeted interviews that surface ground truth and contradictions.",
+  },
+  {
+    icon: <Shield className="w-5 h-5" />,
+    title: "Forensic Analysis",
+    text: "Kbis, contracts, invoices—detect falsification patterns and internal collusion signals.",
+  },
+  {
+    icon: <TriangleAlert className="w-5 h-5" />,
+    title: "Simulation & Mitigation",
+    text: "Apply controlled tests, propose preventive fixes, and close the gaps for good.",
+  },
 ];
 
 /* sectors (no finance/legal/insurance) */
@@ -45,7 +69,10 @@ const impact = [
 
 export default function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { t } = useI18n();
+  const { t, lang } = useI18n(); // assume our hook exposes `lang`
+  const isFR =
+    (lang && String(lang).toLowerCase().startsWith("fr")) ||
+    (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("fr"));
 
   /* tiny scroll-reveal for glass cards / photos / metrics */
   useEffect(() => {
@@ -73,15 +100,6 @@ export default function Site() {
     return () => io.disconnect();
   }, []);
 
-  /* method i18n mapping (keeps your icons, pulls text from i18n) */
-  const methodKeys = ["v", "i", "f", "sim"];
-  const methodIcons = [
-    <Building2 className="w-5 h-5" />,
-    <FileSearch className="w-5 h-5" />,
-    <Shield className="w-5 h-5" />,
-    <TriangleAlert className="w-5 h-5" />,
-  ];
-
   return (
     <div className="min-h-screen text-slate-900 bg-slate-50 bg-grid">
       {/* Header */}
@@ -102,22 +120,15 @@ export default function Site() {
               </div>
             </div>
           </div>
-
-          {/* desktop nav + language switcher (top-right) */}
-          <div className="hidden md:flex items-center gap-4">
-            <nav className="flex items-center gap-6 text-sm">
-              <a href="#mission" className="hover:text-slate-700">{t("nav.mission")}</a>
-              <a href="#services" className="hover:text-slate-700">{t("nav.expertise")}</a>
-              <a href="#bi" className="hover:text-slate-700">{t("nav.ai_bi_tools")}</a>
-              <a href="#evolution" className="hover:text-slate-700">{t("nav.evolution")}</a>
-              <a href="#method" className="hover:text-slate-700">{t("nav.method")}</a>
-              <a href="#team" className="hover:text-slate-700">{t("nav.team")}</a>
-              <a href="#contact" className="hover:text-slate-700">{t("nav.contact")}</a>
-            </nav>
-            <LanguageSwitcher />
-          </div>
-
-          {/* mobile menu button */}
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#mission" className="hover:text-slate-700">Mission</a>
+            <a href="#services" className="hover:text-slate-700">Expertise</a>
+            <a href="#bi" className="hover:text-slate-700">AI & BI Tools</a>
+            <a href="#evolution" className="hover:text-slate-700">Evolution</a>
+            <a href="#method" className="hover:text-slate-700">Method</a>
+            <a href="#team" className="hover:text-slate-700">Team</a>
+            <a href="#contact" className="hover:text-slate-700">Contact</a>
+          </nav>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl border border-slate-200"
@@ -126,30 +137,24 @@ export default function Site() {
             <Globe2 className="w-5 h-5" />
           </button>
         </div>
-
-        {/* mobile menu */}
         {menuOpen && (
           <div className="md:hidden border-t border-slate-200">
             <div className="px-6 py-3 flex flex-col gap-3 text-sm">
-              <div className="mb-2">
-                <LanguageSwitcher />
-              </div>
-              <a href="#mission">{t("nav.mission")}</a>
-              <a href="#services">{t("nav.expertise")}</a>
-              <a href="#bi">{t("nav.ai_bi_tools")}</a>
-              <a href="#evolution">{t("nav.evolution")}</a>
-              <a href="#method">{t("nav.method")}</a>
-              <a href="#team">{t("nav.team")}</a>
-              <a href="#contact">{t("nav.contact")}</a>
+              <a href="#mission">Mission</a>
+              <a href="#services">Expertise</a>
+              <a href="#bi">AI & BI Tools</a>
+              <a href="#evolution">Evolution</a>
+              <a href="#method">Method</a>
+              <a href="#team">Team</a>
+              <a href="#contact">Contact</a>
             </div>
           </div>
         )}
       </header>
 
-      {/* Hero (uses CSS .hero-section for dark indigo gradient) */}
+      {/* Hero */}
       <section className="hero-section relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          {/* ---- Two-column layout: hero card + collage aligned on the same row ---- */}
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Left: hero card */}
             <div className="yb-glass max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
@@ -163,14 +168,17 @@ export default function Site() {
               <p className="mt-2 text-indigo-200 text-base">
                 Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+
+              {/* CTA row */}
+              <div className="mt-8 flex flex-wrap gap-3 items-center">
                 <a href="#contact" className="yb-btn inline-flex items-center gap-2">
                   Request Strategic Assessment <ArrowRight className="w-4 h-4" />
                 </a>
                 <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
                   Explore Our Expertise
                 </a>
-                {/* PDF CTAs */}
+
+                {/* Always show EN PDF */}
                 <a
                   href="/OnePager.pdf"
                   download
@@ -178,14 +186,34 @@ export default function Site() {
                 >
                   Download Anti-Fraud Overview
                 </a>
-                <a
-                  href="/OnePager_FR.pdf"
-                  download
-                  className="yb-btn-ghost inline-flex items-center gap-2"
-                >
-                  Présentation (FR) PDF
-                </a>
+
+                {/* FR-specific banner replacing the FR button */}
+                {isFR ? (
+                  <a
+                    href={brochureFR}
+                    download
+                    className="inline-flex items-center"
+                    aria-label="Téléchargez notre brochure (FR)"
+                    title="Téléchargez notre brochure (FR)"
+                  >
+                    <img
+                      src={brochureFR}
+                      alt="Téléchargez notre brochure (FR)"
+                      className="h-12 md:h-14 rounded-xl shadow ring-1 ring-white/20"
+                      loading="lazy"
+                    />
+                  </a>
+                ) : (
+                  <a
+                    href="/OnePager_FR.pdf"
+                    download
+                    className="yb-btn-ghost inline-flex items-center gap-2"
+                  >
+                    Présentation (FR) PDF
+                  </a>
+                )}
               </div>
+
               <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {stats.map((s, i) => (
                   <div key={i} className="yb-glass rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
@@ -211,7 +239,6 @@ export default function Site() {
               </div>
             </div>
           </div>
-          {/* ---- /Two-column hero ---- */}
         </div>
       </section>
 
@@ -245,8 +272,8 @@ export default function Site() {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               { k: "prevent", icon: <Shield className="w-5 h-5" /> },
-              { k: "react", icon: <FileSearch className="w-5 h-5" /> },
-              { k: "secure", icon: <BookOpen className="w-5 h-5" /> },
+              { k: "react",   icon: <FileSearch className="w-5 h-5" /> },
+              { k: "secure",  icon: <BookOpen className="w-5 h-5" /> },
             ].map(({ k, icon }) => (
               <div
                 key={k}
@@ -259,15 +286,13 @@ export default function Site() {
                 <p className="mt-2 text-sm text-slate-700">{t(`axes.${k}.body`)}</p>
                 <div className="mt-4 text-sm text-slate-700">
                   <span className="font-medium">Why it matters:</span> reduce exposure, neutralize
-                  manipulations, and create legal-grade clarity.
-                  <br />
+                  manipulations, and create legal-grade clarity.<br />
                   <span className="font-medium">How we work:</span> on-site checks + interviews +
-                  forensic docs + AI link analysis.
-                  <br />
+                  forensic docs + AI link analysis.<br />
                   <span className="font-medium">Deliverables:</span> due-diligence reports, risk
-                  maps, timelines, entity graphs, evidence packs.
-                  <br />
-                  <span className="font-medium">Timeline:</span> calibrated per case volume (typically 1–4 weeks).
+                  maps, timelines, entity graphs, evidence packs.<br />
+                  <span className="font-medium">Timeline:</span> calibrated per case volume
+                  (typically 1–4 weeks).
                 </div>
               </div>
             ))}
@@ -278,77 +303,49 @@ export default function Site() {
       {/* Detect • Handle • Secure + Preventive Fixes */}
       <section id="cycle" className="py-20 bg-slate-900 text-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-semibold mb-8">
-            The Intelligence Cycle — Detect • Handle • Secure
-          </h2>
+          <h2 className="text-3xl font-semibold mb-8">The Intelligence Cycle — Detect • Handle • Secure</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
             <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
-              <h3 className="text-xl font-semibold mb-2 text-indigo-300">
-                Detect — See What Others Miss
-              </h3>
-              <p className="text-slate-200">
-                Due diligence, field verification, forensic document review, and AI anomaly detection
-                reveal weak signals and hidden risks.
-              </p>
+              <h3 className="text-xl font-semibold mb-2 text-indigo-300">Detect — See What Others Miss</h3>
+              <p className="text-slate-200">Due diligence, field verification, forensic document review, and AI anomaly detection reveal weak signals and hidden risks.</p>
             </div>
             <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
-              <h3 className="text-xl font-semibold mb-2 text-emerald-300">
-                Handle — Control the Situation
-              </h3>
-              <p className="text-slate-200">
-                We structure complexity into timelines, entity maps, and exposure models so decisions
-                become objective and actionable.
-              </p>
+              <h3 className="text-xl font-semibold mb-2 text-emerald-300">Handle — Control the Situation</h3>
+              <p className="text-slate-200">We structure complexity into timelines, entity maps, and exposure models so decisions become objective and actionable.</p>
             </div>
             <div className="yb-glass rounded-2xl bg-white/10 ring-1 ring-white/15 p-6">
-              <h3 className="text-xl font-semibold mb-2 text-blue-300">
-                Secure — Protect the Future
-              </h3>
-              <p className="text-slate-200">
-                We implement preventive fixes: dual-control approvals, segregation of duties, anomaly
-                alerts, quarterly intelligence reviews.
-              </p>
+              <h3 className="text-xl font-semibold mb-2 text-blue-300">Secure — Protect the Future</h3>
+              <p className="text-slate-200">We implement preventive fixes: dual-control approvals, segregation of duties, anomaly alerts, quarterly intelligence reviews.</p>
             </div>
           </div>
           <div className="mt-8 max-w-3xl mx-auto text-slate-300 text-sm leading-relaxed">
-            <strong className="text-white">Preventive fixes</strong> convert insight into immunity. We
-            redesign the processes that allowed the breach, deploy lightweight controls, train key
-            staff, and monitor over time so the pattern cannot reoccur.
+            <strong className="text-white">Preventive fixes</strong> convert insight into immunity. We redesign the processes that allowed the breach, deploy lightweight controls, train key staff, and monitor over time so the pattern cannot reoccur.
           </div>
         </div>
       </section>
 
-      {/* Business Intelligence & AI Systems (i18n) */}
+      {/* Business Intelligence & AI Systems */}
       <section id="bi" className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t("bi.title")}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">Business Intelligence Tools & AI Management</h2>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-2 text-indigo-700">
-                <LineChart className="w-5 h-5" />
-                <h3 className="font-semibold">{t("bi.card1.title")}</h3>
-              </div>
-              <p className="mt-2 text-slate-700 text-sm">{t("bi.card1.body")}</p>
+              <div className="flex items-center gap-2 text-indigo-700"><LineChart className="w-5 h-5" /><h3 className="font-semibold">Decision Dashboards</h3></div>
+              <p className="mt-2 text-slate-700 text-sm">Unify operations, risk and finance in one view. Real-time insights for owners and legal teams.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-2 text-indigo-700">
-                <Brain className="w-5 h-5" />
-                <h3 className="font-semibold">{t("bi.card2.title")}</h3>
-              </div>
-              <p className="mt-2 text-slate-700 text-sm">{t("bi.card2.body")}</p>
+              <div className="flex items-center gap-2 text-indigo-700"><Brain className="w-5 h-5" /><h3 className="font-semibold">Anomaly Detection</h3></div>
+              <p className="mt-2 text-slate-700 text-sm">AI flags unusual flows, forged patterns, and high-risk counterparties across documents and data.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-2 text-indigo-700">
-                <CircuitBoard className="w-5 h-5" />
-                <h3 className="font-semibold">{t("bi.card3.title")}</h3>
-              </div>
-              <p className="mt-2 text-slate-700 text-sm">{t("bi.card3.body")}</p>
+              <div className="flex items-center gap-2 text-indigo-700"><CircuitBoard className="w-5 h-5" /><h3 className="font-semibold">Lightweight Integration</h3></div>
+              <p className="mt-2 text-slate-700 text-sm">Designed for SMEs: fast deployment, low footprint, and clear ownership of processes and data.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Evolution: Magnifying Glass → AI Chip */}
+      {/* Evolution */}
       <section id="evolution" className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold text-slate-900 mb-4">
@@ -384,46 +381,40 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Method (i18n) */}
+      {/* Method */}
       <section id="method" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">{t("method.title")}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">Method — From Field to Data</h2>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {methodKeys.map((k, i) => (
-              <div key={k} className="rounded-2xl border border-slate-200 bg-white p-6">
-                <div className="flex items-center gap-2 text-indigo-700">
-                  {methodIcons[i]}
-                  <h3 className="font-semibold">{t(`method.cards.${k}.title`)}</h3>
-                </div>
-                <p className="mt-2 text-sm text-slate-700">{t(`method.cards.${k}.body`)}</p>
+            {methods.map((m, i) => (
+              <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <div className="flex items-center gap-2 text-indigo-700">{m.icon}<h3 className="font-semibold">{m.title}</h3></div>
+                <p className="mt-2 text-sm text-slate-700">{m.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Inspiration Gallery (i18n) */}
+      {/* Inspiration Gallery */}
       <section className="max-w-6xl mx-auto px-6 py-16" id="gallery">
-        <h2 className="text-3xl font-semibold tracking-tight mb-6">{t("gallery.title")}</h2>
-        <p className="text-slate-600 max-w-3xl">{t("gallery.body")}</p>
+        <h2 className="text-3xl font-semibold tracking-tight mb-6">The Work, Quietly</h2>
+        <p className="text-slate-600 max-w-3xl">
+          Investigation, pattern recognition, prevention. Traditional craft — upgraded with today’s
+          intelligence.
+        </p>
 
         <div className="mt-8 grid md:grid-cols-3 gap-5">
-          <figure className="yb-photo">
-            <img src="/img/ai-lens.jpg" alt="AI lens" />
-          </figure>
-          <figure className="yb-photo">
-            <img src="/img/secure-systems.jpg" alt="Secure systems" />
-          </figure>
-          <figure className="yb-photo">
-            <img src="/img/team-field.jpg" alt="Fieldwork" />
-          </figure>
+          <figure className="yb-photo"><img src="/img/ai-lens.jpg" alt="AI lens" /></figure>
+          <figure className="yb-photo"><img src="/img/secure-systems.jpg" alt="Secure systems" /></figure>
+          <figure className="yb-photo"><img src="/img/team-field.jpg" alt="Fieldwork" /></figure>
         </div>
       </section>
 
-      {/* Sectors (i18n title) */}
+      {/* Sectors */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold">{t("sectors.title")}</h2>
+          <h2 className="text-3xl font-semibold">Sectors We Serve</h2>
           <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
             {sectors.map((s, i) => (
               <li key={i} className="flex items-start gap-3">
@@ -435,10 +426,10 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Case Studies placeholder (i18n title) */}
+      {/* Case Studies */}
       <section id="cases" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold">{t("cases.title")}</h2>
+          <h2 className="text-3xl font-semibold">Case Studies (Anonymized)</h2>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               { t: "Supplier Collusion in Manufacturing", d: "€250k exposure neutralized via entity mapping & interviews." },
@@ -458,7 +449,7 @@ export default function Site() {
       <section id="team" className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-semibold tracking-tight">About YB Consulting</h2>
-          <div className="mt-4 text-slate-700 max-w-4xl leading-relaxed">
+        <div className="mt-4 text-slate-700 max-w-4xl leading-relaxed">
             <p>
               <strong>Yves B.</strong> — Founder & Director. 35 years of experience in business
               intelligence and risk management. Former leadership roles with Kroll Associates (NY),
@@ -473,47 +464,56 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Coverage (i18n) */}
+      {/* Coverage */}
       <section className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6">
             <div className="flex items-center gap-2 font-semibold text-slate-800">
-              <MapPin className="w-5 h-5" /> {t("coverage.title")}
+              <MapPin className="w-5 h-5" /> European Coverage
             </div>
-            <p className="mt-2 text-sm text-slate-600">{t("coverage.body")}</p>
+            <p className="mt-2 text-sm text-slate-600">
+              Belgium • France • Luxembourg • Netherlands • Germany • Switzerland • Spain. Other
+              regions available upon request.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Contact — intelligent, email-first (i18n) */}
+      {/* Contact */}
       <section id="contact" className="py-16 md:py-20 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute -inset-20 -z-10 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(99,102,241,0.3),rgba(15,23,42,0))]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2 yb-glass rounded-3xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-6 md:p-8">
-              <h2 className="text-2xl md:text-3xl font-semibold">{t("contact.title")}</h2>
-              <p className="mt-2 text-indigo-100">{t("contact.body")}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold">Request a Strategic Assessment</h2>
+              <p className="mt-2 text-indigo-100">
+                One click to clarity. Share your context — our Intelligence Desk will respond within 24
+                hours.
+              </p>
 
-              {/* smart email pill */}
               <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-white text-slate-900 px-4 py-2 font-medium shadow">
                 <Mail className="w-4 h-4" />
                 <a href="mailto:ybconsult.ai@proton.me">ybconsult.ai@proton.me</a>
               </div>
 
-              {/* (Optional) PDF secondary link */}
               <p className="mt-3 text-indigo-200 text-sm">
                 Prefer to read first?{" "}
                 <a href="/OnePager.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
                   Download our Anti-Fraud Overview (PDF)
                 </a>{" "}
                 •{" "}
-                <a href="/OnePager_FR.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
-                  Présentation (FR)
-                </a>
+                {isFR ? (
+                  <a href={brochureFR} download className="underline decoration-indigo-300 hover:text-indigo-100">
+                    Brochure (FR)
+                  </a>
+                ) : (
+                  <a href="/OnePager_FR.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
+                    Présentation (FR)
+                  </a>
+                )}
                 .
               </p>
 
-              {/* Formspree form */}
               <form
                 action="https://formspree.io/f/xjkpneje"
                 method="POST"
@@ -526,7 +526,6 @@ export default function Site() {
                   name="_redirect"
                   value="https://yb-dgm-phaseshift-solutions.netlify.app/thanks.html"
                 />
-                {/* honeypot */}
                 <input
                   type="text"
                   name="_gotcha"
@@ -576,7 +575,6 @@ export default function Site() {
                 </p>
               </form>
 
-              {/* Address block */}
               <p className="mt-6 text-indigo-200 text-sm">
                 YB Consulting — 2 bis rue Saint Léger, 1205 Genève (Switzerland)
               </p>
@@ -588,29 +586,25 @@ export default function Site() {
                   <Shield className="w-5 h-5" /> Privacy & Compliance
                 </div>
                 <ul className="mt-3 space-y-2 text-sm">
-                  <li className="flex gap-2">
-                    <CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> {t("contact.privacy1")}
-                  </li>
-                  <li className="flex gap-2">
-                    <CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> {t("contact.privacy2")}
-                  </li>
-                  <li className="flex gap-2">
-                    <CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> {t("contact.privacy3")}
-                  </li>
+                  <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> Strict confidentiality</li>
+                  <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> GDPR compliant</li>
+                  <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 mt-0.5 text-indigo-700" /> 100% legal methods</li>
                 </ul>
               </div>
               <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
                 <div className="flex items-center gap-2 font-semibold text-slate-800">
-                  <MapPin className="w-5 h-5" /> {t("contact.where_title")}
+                  <MapPin className="w-5 h-5" /> Where we operate
                 </div>
-                <p className="mt-2 text-sm text-slate-600">{t("contact.where_body")}</p>
+                <p className="mt-2 text-sm text-slate-600">
+                  Belgium • France • Luxembourg • Netherlands • Germany • Switzerland • Spain. Others on request.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer (i18n links) */}
+      {/* Footer */}
       <footer className="py-8 border-t border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-slate-600 text-center md:text-left">
@@ -621,13 +615,20 @@ export default function Site() {
             </span>
           </div>
           <div className="flex items-center gap-4 text-xs text-slate-500">
-            <a href="/privacy.html" className="hover:underline">{t("footer.privacy")}</a>
-            <a href="/imprint.html" className="hover:underline">{t("footer.imprint")}</a>
-            <a href="/OnePager.pdf" download className="hover:underline">{t("footer.overview")}</a>
-            <a href="/OnePager_FR.pdf" download className="hover:underline">{t("footer.presentation_fr")}</a>
+            <a href="/privacy.html" className="hover:underline">Privacy</a>
+            <a href="/imprint.html" className="hover:underline">Imprint</a>
+            <a href="/OnePager.pdf" download className="hover:underline">Overview (PDF)</a>
+            {isFR ? (
+              <a href={brochureFR} download className="hover:underline">Brochure (FR)</a>
+            ) : (
+              <a href="/OnePager_FR.pdf" download className="hover:underline">Présentation (FR)</a>
+            )}
           </div>
         </div>
       </footer>
+
+      {/* Floating language switcher */}
+      <LanguageSwitcher />
     </div>
   );
 }
