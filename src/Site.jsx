@@ -19,13 +19,34 @@ import { useI18n } from "./main.jsx";
 
 /* assets placed in /public */
 const logoSrc = "/logo-yb.png";   // put "logo YB consulting.png" as /public/logo-yb.png
-const brochureFR = "/brochure-fr.png"; // <-- banner image we’ll show for FR
 
 /* top stats */
 const stats = [
   { value: "Detect", label: "Irregularities & weak signals" },
   { value: "Handle", label: "Structure the case into clarity" },
   { value: "Secure", label: "Prevent recurrence with fixes" },
+];
+
+/* high-level pillars (kept for reference; Axes UI now uses i18n keys below) */
+const pillars = [
+  {
+    icon: <Shield className="w-5 h-5" />,
+    title: "Prevention — Due Diligence & Risk Mapping",
+    text:
+      "Background checks on partners and processes, document verification, and vulnerability mapping in procurement, logistics, finance, and governance. Outcome: trusted partnerships and controlled exposure.",
+  },
+  {
+    icon: <FileSearch className="w-5 h-5" />,
+    title: "Reaction — Investigations & Evidence Structuring",
+    text:
+      "Field investigations, targeted interviews, forensic document analysis, and AI-assisted link analysis. Outcome: legal-ready timelines, evidence packs, and clear next actions.",
+  },
+  {
+    icon: <BookOpen className="w-5 h-5" />,
+    title: "Litigation Support — Building the Case",
+    text:
+      "We organize complex documentation for legal teams: chronology, entity maps, and risk exposure models that transform complexity into credibility in court.",
+  },
 ];
 
 /* method cards */
@@ -69,10 +90,7 @@ const impact = [
 
 export default function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { t, lang } = useI18n(); // assume our hook exposes `lang`
-  const isFR =
-    (lang && String(lang).toLowerCase().startsWith("fr")) ||
-    (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("fr"));
+  const { t } = useI18n();
 
   /* tiny scroll-reveal for glass cards / photos / metrics */
   useEffect(() => {
@@ -152,9 +170,10 @@ export default function Site() {
         )}
       </header>
 
-      {/* Hero */}
+      {/* Hero (uses CSS .hero-section for dark indigo gradient) */}
       <section className="hero-section relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+          {/* ---- Two-column layout: hero card + collage aligned on the same row ---- */}
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Left: hero card */}
             <div className="yb-glass max-w-3xl backdrop-blur-xl bg-white/10 ring-1 ring-white/15 rounded-3xl p-8 md:p-10 text-white">
@@ -168,17 +187,14 @@ export default function Site() {
               <p className="mt-2 text-indigo-200 text-base">
                 Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
               </p>
-
-              {/* CTA row */}
-              <div className="mt-8 flex flex-wrap gap-3 items-center">
+              <div className="mt-8 flex flex-wrap gap-3">
                 <a href="#contact" className="yb-btn inline-flex items-center gap-2">
                   Request Strategic Assessment <ArrowRight className="w-4 h-4" />
                 </a>
                 <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
                   Explore Our Expertise
                 </a>
-
-                {/* Always show EN PDF */}
+                {/* PDF CTAs */}
                 <a
                   href="/OnePager.pdf"
                   download
@@ -186,33 +202,22 @@ export default function Site() {
                 >
                   Download Anti-Fraud Overview
                 </a>
-
-                {/* FR-specific banner replacing the FR button */}
-                {isFR ? (
-                  <a
-                    href={brochureFR}
-                    download
-                    className="inline-flex items-center"
-                    aria-label="Téléchargez notre brochure (FR)"
-                    title="Téléchargez notre brochure (FR)"
-                  >
-                    <img
-                      src={brochureFR}
-                      alt="Téléchargez notre brochure (FR)"
-                      className="h-12 md:h-14 rounded-xl shadow ring-1 ring-white/20"
-                      loading="lazy"
-                    />
-                  </a>
-                ) : (
-                  <a
-                    href="/OnePager_FR.pdf"
-                    download
-                    className="yb-btn-ghost inline-flex items-center gap-2"
-                  >
-                    Présentation (FR) PDF
-                  </a>
-                )}
               </div>
+
+              {/* FR brochure banner (always visible; replaces the small FR button) */}
+              <a
+                href="/OnePager_FR.pdf"
+                download
+                className="block mt-4"
+                aria-label="Téléchargez notre brochure professionnelle (FR)"
+              >
+                <img
+                  src="/brochure-fr.png"
+                  alt="Téléchargez notre brochure professionnelle (FR)"
+                  className="w-full max-w-2xl rounded-2xl ring-1 ring-white/20 hover:opacity-95 transition"
+                  loading="lazy"
+                />
+              </a>
 
               <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {stats.map((s, i) => (
@@ -239,6 +244,7 @@ export default function Site() {
               </div>
             </div>
           </div>
+          {/* ---- /Two-column hero ---- */}
         </div>
       </section>
 
@@ -260,6 +266,7 @@ export default function Site() {
           <h2 className="text-3xl font-semibold tracking-tight">{t("mission.title")}</h2>
           <p
             className="mt-3 text-slate-700 leading-relaxed max-w-4xl"
+            // mission.body contains markup in your JSONs
             dangerouslySetInnerHTML={{ __html: t("mission.body") }}
           />
         </div>
@@ -345,7 +352,7 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Evolution */}
+      {/* Evolution: Magnifying Glass → AI Chip */}
       <section id="evolution" className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold text-slate-900 mb-4">
@@ -415,7 +422,7 @@ export default function Site() {
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-semibold">Sectors We Serve</h2>
-          <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
             {sectors.map((s, i) => (
               <li key={i} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5" />
@@ -426,7 +433,7 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Case Studies */}
+      {/* Case Studies placeholder */}
       <section id="cases" className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-semibold">Case Studies (Anonymized)</h2>
@@ -449,7 +456,7 @@ export default function Site() {
       <section id="team" className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-semibold tracking-tight">About YB Consulting</h2>
-        <div className="mt-4 text-slate-700 max-w-4xl leading-relaxed">
+          <div className="mt-4 text-slate-700 max-w-4xl leading-relaxed">
             <p>
               <strong>Yves B.</strong> — Founder & Director. 35 years of experience in business
               intelligence and risk management. Former leadership roles with Kroll Associates (NY),
@@ -479,7 +486,7 @@ export default function Site() {
         </div>
       </section>
 
-      {/* Contact */}
+      {/* Contact — intelligent, email-first */}
       <section id="contact" className="py-16 md:py-20 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute -inset-20 -z-10 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(99,102,241,0.3),rgba(15,23,42,0))]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -491,29 +498,26 @@ export default function Site() {
                 hours.
               </p>
 
+              {/* smart email pill */}
               <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-white text-slate-900 px-4 py-2 font-medium shadow">
                 <Mail className="w-4 h-4" />
                 <a href="mailto:ybconsult.ai@proton.me">ybconsult.ai@proton.me</a>
               </div>
 
+              {/* (Optional) PDF secondary link */}
               <p className="mt-3 text-indigo-200 text-sm">
                 Prefer to read first?{" "}
                 <a href="/OnePager.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
                   Download our Anti-Fraud Overview (PDF)
                 </a>{" "}
                 •{" "}
-                {isFR ? (
-                  <a href={brochureFR} download className="underline decoration-indigo-300 hover:text-indigo-100">
-                    Brochure (FR)
-                  </a>
-                ) : (
-                  <a href="/OnePager_FR.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
-                    Présentation (FR)
-                  </a>
-                )}
+                <a href="/OnePager_FR.pdf" download className="underline decoration-indigo-300 hover:text-indigo-100">
+                  Présentation (FR)
+                </a>
                 .
               </p>
 
+              {/* Formspree form */}
               <form
                 action="https://formspree.io/f/xjkpneje"
                 method="POST"
@@ -526,6 +530,7 @@ export default function Site() {
                   name="_redirect"
                   value="https://yb-dgm-phaseshift-solutions.netlify.app/thanks.html"
                 />
+                {/* honeypot */}
                 <input
                   type="text"
                   name="_gotcha"
@@ -575,13 +580,14 @@ export default function Site() {
                 </p>
               </form>
 
+              {/* Address block */}
               <p className="mt-6 text-indigo-200 text-sm">
                 YB Consulting — 2 bis rue Saint Léger, 1205 Genève (Switzerland)
               </p>
             </div>
 
             <div className="lg:pl-2">
-              <div className="rounded-2xl border border-indigo-300/40 bg-indigo-50/40 p-6 text-slate-800">
+              <div className="rounded-2xl border border-indigo-300/40 bg-indigo-50/40 p-6 text-slate-8 00">
                 <div className="flex items-center gap-2 text-indigo-700 font-semibold">
                   <Shield className="w-5 h-5" /> Privacy & Compliance
                 </div>
@@ -618,11 +624,7 @@ export default function Site() {
             <a href="/privacy.html" className="hover:underline">Privacy</a>
             <a href="/imprint.html" className="hover:underline">Imprint</a>
             <a href="/OnePager.pdf" download className="hover:underline">Overview (PDF)</a>
-            {isFR ? (
-              <a href={brochureFR} download className="hover:underline">Brochure (FR)</a>
-            ) : (
-              <a href="/OnePager_FR.pdf" download className="hover:underline">Présentation (FR)</a>
-            )}
+            <a href="/OnePager_FR.pdf" download className="hover:underline">Présentation (FR)</a>
           </div>
         </div>
       </footer>
