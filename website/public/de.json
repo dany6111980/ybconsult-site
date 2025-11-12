@@ -1,34 +1,28 @@
+
 {
   "mission": {
     "title": "Unsere Mission",
-    "body": "Wir verbinden Untersuchungserfahrung und Datenintelligenz, damit Unternehmen klar sehen, entschlossen handeln und Verluste vermeiden können. Drei Verben definieren unsere Philosophie: <strong>Erkennen</strong>, was andere übersehen, <strong>Strukturieren</strong> von Komplexität, und <strong>Sichern</strong> der Zukunft durch präventive Systeme."
+    "body": "Wir verbinden Untersuchungserfahrung und Datenintelligenz, damit Unternehmen klar sehen, entschlossen handeln und Verluste verhindern. Drei Verben definieren unsere Philosophie: <strong>Erkennen</strong>, was andere übersehen, <strong>Strukturieren</strong> von Komplexität und <strong>Absichern</strong> der Zukunft mit präventiven Systemen."
   },
   "axes": {
-    "title": "Unsere Drei Interventionsachsen",
+    "title": "Unsere drei Interventionsachsen",
     "prevent": {
       "title": "Prävention — Due Diligence & Risikokartierung",
-      "body": "Überprüfungen von Partnern und Prozessen, Dokumentenverifikation und Schwachstellenanalyse in Beschaffung, Logistik, Finanzen und Governance. Ergebnis: vertrauenswürdige Partnerschaften und kontrollierte Risiken."
+      "body": "Prüfung von Partnern und Prozessen, Dokumenten-Verifikation und Schwachstellenanalyse in Beschaffung, Logistik, Finanzen und Governance. Ergebnis: verlässliche Partnerschaften und kontrollierte Risiken."
     },
     "react": {
       "title": "Reaktion — Ermittlungen & Beweisstrukturierung",
-      "body": "Felduntersuchungen, gezielte Interviews, forensische Dokumentenanalyse und KI-gestützte Verknüpfungsanalysen. Ergebnis: gerichtsfertige Zeitpläne, Beweispakete und klare nächste Schritte."
+      "body": "Felduntersuchungen, gezielte Interviews, forensische Dokumentenanalyse und KI-gestützte Verknüpfungen. Ergebnis: gerichtsfertige Zeitpläne, Beweispakete und klare nächste Schritte."
     },
     "secure": {
-      "title": "Prozessunterstützung — Aufbau des Falls",
-      "body": "Wir organisieren komplexe Dokumentationen für Rechtsteams: Chronologien, Entitätsdiagramme und Risikomodelle, die Komplexität in Glaubwürdigkeit verwandeln."
+      "title": "Absicherung — Litigation-Support",
+      "body": "Wir organisieren komplexe Dokumentationen für Rechtsteams: Chronologien, Entitätsgraphen und Risikomodelle, die Komplexität in Glaubwürdigkeit verwandeln."
     }
   },
   "hero": {
     "title": "Business Intelligence, Due Diligence & Risikomanagement",
-    "subtitle1": "Wir verbinden Feldrecherche mit KI-Präzision, um Unsicherheit in Klarheit — und Klarheit in entschlossenes Handeln — zu verwandeln.",
-    "subtitle2": "Tätig in Belgien, Frankreich, Luxemburg, Niederlande, Deutschland, Schweiz und Spanien.",
-    "cta_request": "Strategische Einschätzung anfordern",
-    "cta_explore": "Unsere Expertise erkunden",
-    "cta_overview": "Anti-Fraud-Übersicht herunterladen",
-    "cta_fr_pdf": "Präsentation (FR) PDF",
-
-    "subtitle": "Wir verbinden Feldrecherche mit KI-Präzision, um Unsicherheit in Klarheit — und Klarheit in entschlossenes Handeln — zu verwandeln.",
-    "coverage": "Tätig in Belgien, Frankreich, Luxemburg, Niederlande, Deutschland, Schweiz und Spanien.",
+    "subtitle": "Wir kombinieren Feldrecherche und KI-Präzision, um Unsicherheit in Klarheit — und Klarheit in entschlossenes Handeln — zu verwandeln.",
+    "coverage": "Belgien, Frankreich, Luxemburg, Niederlande, Deutschland, Schweiz, Spanien.",
     "cta_assessment": "Strategische Einschätzung anfordern",
     "cta_expertise": "Unsere Expertise erkunden",
     "cta_pdf_en": "Anti-Fraud-Übersicht herunterladen",

@@ -1,6 +1,9 @@
-﻿import React from "react";
+﻿
+// website/src/main.jsx
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import "./index.css"; // <-- ensure styles are loaded in prod & locally
 
 // i18n core
 import i18next from "i18next";
@@ -11,9 +14,7 @@ import { initReactI18next } from "react-i18next";
  * It exposes the active language, a changeLanguage() helper, and t().
  */
 export function useI18n() {
-  const [lng, setLng] = React.useState(
-    (i18next.language || "en").slice(0, 2)
-  );
+  const [lng, setLng] = React.useState((i18next.language || "en").slice(0, 2));
 
   React.useEffect(() => {
     const onChange = () => setLng((i18next.language || "en").slice(0, 2));
@@ -87,6 +88,12 @@ async function bootstrap() {
     // Avoid Suspense requirement in react-i18next
     react: { useSuspense: false },
   });
+
+  // Keep <html lang=".."> in sync (helps SEO/a11y)
+  const setHtmlLang = () =>
+    document?.documentElement && (document.documentElement.lang = (i18next.language || "en").slice(0, 2));
+  setHtmlLang();
+  i18next.on("languageChanged", setHtmlLang);
 
   // Mount only after i18n is ready (prevents white screen)
   const root = ReactDOM.createRoot(document.getElementById("root"));
