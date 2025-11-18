@@ -17,7 +17,7 @@
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("/ai-bg.png");
+  background-image: url("/ai-bg.png?v=2");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
