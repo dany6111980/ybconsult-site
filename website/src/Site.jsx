@@ -1,5 +1,4 @@
-﻿
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import {
   CheckCircle2,
   Shield,
@@ -188,29 +187,40 @@ export default function Site() {
               <p className="mt-2 text-indigo-200 text-base">
                 Operating across Belgium, France, Luxembourg, Netherlands, Germany, Switzerland, and Spain.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a href="#contact" className="yb-btn inline-flex items-center gap-2">
-                  Request Strategic Assessment <ArrowRight className="w-4 h-4" />
-                </a>
-                <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
-                  Explore Our Expertise
-                </a>
-                {/* PDF CTAs */}
-                <a
-                  href="/OnePager.pdf"
-                  download
-                  className="yb-btn-ghost inline-flex items-center gap-2"
-                >
-                  Download Anti-Fraud Overview
-                </a>
+
+              {/* CTAs + FR Banner */}
+              <div className="mt-8 flex flex-col gap-3">
+                <div className="flex flex-wrap gap-3">
+                  <a href="#contact" className="yb-btn inline-flex items-center gap-2">
+                    Request Strategic Assessment <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a href="#services" className="yb-btn-ghost inline-flex items-center gap-2">
+                    Explore Our Expertise
+                  </a>
+                  {/* EN PDF CTA */}
+                  <a
+                    href="/OnePager.pdf"
+                    download
+                    className="yb-btn-ghost inline-flex items-center gap-2"
+                  >
+                    Download Anti-Fraud Overview
+                  </a>
+                </div>
+
+                {/* FR banner (always visible, links to FR PDF) */}
                 <a
                   href="/OnePager_FR.pdf"
                   download
-                  className="yb-btn-ghost inline-flex items-center gap-2"
+                  className="block"
                 >
-                  Présentation (FR) PDF
+                  <img
+                    src="/brochure-fr.png"
+                    alt="Présentation FR"
+                    className="w-48 rounded-xl shadow-lg hover:shadow-xl transition"
+                  />
                 </a>
               </div>
+
               <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {stats.map((s, i) => (
                   <div key={i} className="yb-glass rounded-2xl bg-white/10 backdrop-blur ring-1 ring-white/20 p-5">
@@ -414,7 +424,7 @@ export default function Site() {
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-semibold">Sectors We Serve</h2>
-        <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
             {sectors.map((s, i) => (
               <li key={i} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5" />
